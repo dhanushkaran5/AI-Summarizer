@@ -1,81 +1,170 @@
-# ANTI-SUMMARY: Adaptive Document Intelligence Platform
+# 🧠 ANTI-SUMMARY — Adaptive Document Intelligence Platform
 
-> **Not simply shorter text — an adaptive understanding layer.**
+> **Don't just summarize documents. Understand them. Question them. Compare them. Verify them.**
 
-ANTI-SUMMARY transforms complex documents into multi-depth representations (Levels 0 through 5) tailored across 9 audience modes, backed by anti-hallucination source verification, an internal contradiction engine, and a semantic knowledge graph.
+ANTI-SUMMARY is an intelligent document understanding platform designed to go beyond traditional summarization.
 
----
-
-## ⚡ Key Capabilities
-
-1. **Multi-Depth Understandings (Levels 0–5)**:
-   - **Level 0 (Essence)**: Exactly one concise sentence capturing the core thesis.
-   - **Level 1 (Executive)**: High-level executive overview with bulleted highlights.
-   - **Level 2 (Structured)**: Mode-specific deep-dive breakdown.
-   - **Level 3 (Sections)**: Section-by-section breakdown with takeaway summaries.
-   - **Level 4 (Deep Technical)**: In-depth methodological, algorithmic, and architectural evaluation.
-   - **Level 5 (Knowledge Base)**: Self-contained Q&A knowledge base.
-
-2. **9 Specialized Audience Modes**:
-   - `Executive`, `Student`, `Research`, `Technical`, `Beginner (ELI5)`, `Meeting`, `Exam Prep`, `Legal & Policy`, `Custom`.
-
-3. **Grounded RAG with Anti-Hallucination Claim Verification**:
-   - Every answer classifies claim support into: `EXPLICITLY STATED`, `INFERRED`, `UNCERTAIN`, or `NOT FOUND`.
-   - Interactive **View Source** split pane allows users to click citations to inspect the exact original document paragraph, page number, and similarity score.
-
-4. **Contradiction & Consistency Engine**:
-   - Cross-section semantic audit that automatically detects opposing numbers, conflicting requirements, and changed dates across pages.
-
-5. **Semantic Document Knowledge Map**:
-   - Visual hierarchical concept tree categorizing entities and linking them directly back to source evidence.
-
-6. **Change Detection ("What Changed?")**:
-   - Version-aware diffing to compare evolving document releases.
-
-7. **The Anti-Gravity Principle (Graceful Degradation)**:
-   - Resilient multi-tier architecture with offline local heuristic engines and in-memory vector stores ensuring 100% platform availability if external LLMs or vector databases are unavailable.
-
-8. **WCAG 2.1 Level AA Accessibility**:
-   - Visible high-contrast focus rings, skip-to-main-content link, keyboard navigable controls, 44x44px touch targets, and text scaling support up to 200%.
+Instead of simply reducing a long document into a shorter version, the platform transforms documents into **multiple levels of understanding**, enabling users to summarize, analyze, question, compare, verify, and discover hidden insights from complex documents.
 
 ---
 
-## 🛠️ Technology Stack
+## 🚀 Project Overview
 
-- **AI Service**: Python 3.10+, FastAPI, Uvicorn, Sentence-Transformers, ChromaDB / In-Memory Cosine Store, PyPDF2, python-docx, python-pptx.
-- **Backend**: Java 17+, Spring Boot 3.4.2, Spring Data JPA, Spring Security, JWT, H2 / PostgreSQL, Jackson.
-- **Frontend**: Vite 8, React 19, TypeScript, TailwindCSS 4, Lucide Icons.
+Modern documents are becoming increasingly complex.
 
----
+Students, researchers, developers, professionals, and organizations often spend significant time reading:
 
-## 🚀 Quick Start
+- 📄 Research papers
+- 📚 Academic materials
+- 📝 Reports
+- 💼 Business documents
+- ⚖️ Policies and legal documents
+- 📊 Technical documentation
+- 📑 Meeting documents
+- 📖 Study materials
 
-### 1. Start AI Intelligence Service
-```bash
-cd ai-service
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
-```
+Traditional summarization systems mainly answer:
 
-### 2. Start Spring Boot Backend
-```bash
-cd backend
-./mvnw spring-boot:run
-```
+> **"What is this document about?"**
 
-### 3. Start Frontend Workspace
-```bash
-cd frontend
-npm install
-npm run dev
-```
+ANTI-SUMMARY aims to answer much more:
 
-Visit **http://localhost:5173** to access ANTI-SUMMARY.
+> **"What does this document mean?"**  
+> **"What are the important facts?"**  
+> **"Where did this information come from?"**  
+> **"Are there contradictions?"**  
+> **"What changes between two documents?"**  
+> **"What questions can I ask about it?"**  
+> **"What hidden relationships exist inside the document?"**
 
 ---
 
-## 🧪 Verification & Testing
+# 🎯 Problem Statement
 
-- **Python AI Suite**: `python -m pytest ai-service/tests -v` (8/8 tests pass)
-- **Java Backend Suite**: `./backend/mvnw test` (All unit & context tests pass)
-- **Frontend Production Bundle**: `npm --prefix frontend run build` (Clean Vite build)
+Large documents contain valuable information, but extracting meaningful knowledge from them is difficult.
+
+### Existing problems
+
+### 1. Information overload
+
+Users may need to read hundreds of pages to understand a single topic.
+
+### 2. Traditional summaries are limited
+
+A normal summary provides a shortened version of the document but may remove important context.
+
+### 3. Different users need different explanations
+
+A student, researcher, executive, developer, and beginner may require completely different levels of explanation.
+
+### 4. Difficult information retrieval
+
+Finding one specific fact inside a large document can require manually searching through many pages.
+
+### 5. Lack of evidence
+
+AI-generated answers can be difficult to trust if users cannot identify where the information originated.
+
+### 6. Document comparison is difficult
+
+Comparing multiple versions of reports, papers, policies, or technical documents manually is time-consuming.
+
+### 7. Hidden relationships are difficult to identify
+
+Important connections between concepts, entities, sections, and topics may not be obvious to the reader.
+
+---
+
+# 💡 Proposed Solution
+
+ANTI-SUMMARY introduces an **Adaptive Document Intelligence Layer**.
+
+Instead of producing only one summary, the system creates multiple representations of the same document.
+
+### Multi-Level Understanding
+
+| Level | Purpose |
+|---|---|
+| Level 0 | Essential one-sentence understanding |
+| Level 1 | Executive-level overview |
+| Level 2 | Structured deep analysis |
+| Level 3 | Section-by-section understanding |
+| Level 4 | Technical and methodological analysis |
+| Level 5 | Knowledge-base / Q&A representation |
+
+This allows users to choose **how deeply they want to understand a document**.
+
+---
+
+# ✨ Core Features
+
+## 🧠 1. Adaptive Multi-Level Summarization
+
+Generate different levels of summaries depending on the user's requirements.
+
+### Level 0 — Essence
+A single sentence explaining the central idea.
+
+### Level 1 — Executive
+High-level overview with important points.
+
+### Level 2 — Structured
+Detailed structured explanation.
+
+### Level 3 — Section Analysis
+Breaks the document down section by section.
+
+### Level 4 — Deep Technical
+Focuses on:
+
+- Methodology
+- Algorithms
+- Architecture
+- Technical decisions
+- Results
+- Limitations
+
+### Level 5 — Knowledge Base
+
+Transforms the document into a question-answerable knowledge representation.
+
+---
+
+# 🎭 2. Specialized Audience Modes
+
+Different users require different explanations.
+
+ANTI-SUMMARY supports specialized understanding modes such as:
+
+- 👔 Executive
+- 🎓 Student
+- 🔬 Research
+- 💻 Technical
+- 🌱 Beginner / ELi5
+- 🗣️ Meeting
+- 📝 Exam Preparation
+- ⚖️ Legal & Policy
+- ⚙️ Custom
+
+The same document can therefore be explained differently depending on the user's purpose.
+
+---
+
+# ❓ 3. Document Question Answering
+
+Users can interact with uploaded documents using natural language.
+
+Example:
+
+```text
+What is the main objective of this document?
+
+What methodology was used?
+
+What are the limitations?
+
+What are the important findings?
+
+Explain this concept like I'm a beginner.
+
+What evidence supports this conclusion?
