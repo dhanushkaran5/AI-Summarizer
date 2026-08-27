@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: IntelliDoc AI Backend
+
+  profiles:
+    active: dev
+
+  # H2 Database (Development)
+  datasource:
+    url: jdbc:h2:file:./data/intellidoc;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  # File upload
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 55MB
+
+  # Jackson
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+# Server
+server:
+  port: 8080
+
+# JWT
+jwt:
+  secret: intellidoc-ai-secret-key-change-this-in-production-minimum-256-bits-for-security
+  expiration: 86400000
+
+# AI Service
+ai:
+  service:
+    url: http://localhost:8000
+
+# File storage
+file:
+  upload-dir: ./uploads

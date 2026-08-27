@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: anti-summary-ai-service
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=ANTI-SUMMARY Intelligence Service
+      - APP_VERSION=2.0.0
+      - AI_PROVIDER=mock
+      - AI_MODE=mock
+      - CHUNK_SIZE=1000
+      - CHUNK_OVERLAP=200
+      - CHROMA_PERSIST_DIR=/app/chroma_data
+      - UPLOAD_DIR=/app/uploads
+    volumes:
+      - ./data/uploads:/app/uploads
+      - ./data/chroma:/app/chroma_data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: anti-summary-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - AI_SERVICE_URL=http://ai-service:8000
+      - FILE_UPLOAD_DIR=/app/uploads
+    volumes:
+      - ./data/uploads:/app/uploads
+      - ./data/db:/app/data
+    depends_on:
+      ai-service:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: anti-summary-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
