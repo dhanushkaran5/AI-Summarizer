@@ -158,13 +158,710 @@ Example:
 
 ```text
 What is the main objective of this document?
+🔎 4. Evidence & Source Verification
+
+One of the key goals of ANTI-SUMMARY is to make AI-generated information more trustworthy.
+
+The system can associate generated insights with the relevant document context.
+
+This helps users understand:
+Answer
+   ↓
+Supporting Information
+   ↓
+Document Section
+   ↓
+Original Context
+⚠️ 5. Contradiction Detection
+
+The platform can analyze document content for potentially conflicting statements.
+
+Example:
+
+Statement A:
+The system requires 8GB RAM.
+
+Statement B:
+The minimum requirement is 16GB RAM.
+
+↓
+Potential contradiction detected
+
+This can be useful when analyzing:
+
+Reports
+Research papers
+Policies
+Technical documents
+Multiple document versions
+🔄 6. Document Comparison
+
+Compare multiple documents to identify:
+
+Added information
+Removed information
+Changed statements
+Different conclusions
+Common concepts
+Conflicting information
+
+Example:
+
+Document A
+      ↓
+   Compare
+      ↓
+Document B
+      ↓
+Differences + Similarities + Insights
+🕸️ 7. Semantic Knowledge Discovery
+
+The platform is designed to move beyond plain text processing.
+
+It can identify relationships between:
+
+Concepts
+Topics
+Entities
+Sections
+Claims
+Evidence
+
+This creates a foundation for building a semantic knowledge graph.
+
+📚 8. Knowledge Extraction
+
+Important information can be extracted from documents, including:
+
+Key concepts
+Important facts
+Topics
+Entities
+Claims
+Relationships
+Questions
+Conclusions
+Supporting evidence
+🧩 9. Intelligent Document Understanding
+
+Instead of treating a document as plain text, ANTI-SUMMARY treats it as a structured source of knowledge.
+
+Traditional approach
+Document
+   ↓
+Text
+   ↓
+Summary
+ANTI-SUMMARY approach
+                    ┌── Summary
+                    ├── Questions
+Document ───────────┼── Evidence
+                    ├── Contradictions
+                    ├── Comparison
+                    ├── Knowledge
+                    └── Insights
+🏗️ System Architecture
+                    ┌─────────────────────┐
+                    │       USER          │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Web Application   │
+                    │   Frontend / UI     │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Application API   │
+                    └──────────┬──────────┘
+                               │
+             ┌─────────────────┼─────────────────┐
+             │                 │                 │
+             ▼                 ▼                 ▼
+       ┌───────────┐    ┌─────────────┐   ┌─────────────┐
+       │ Document  │    │ AI/NLP      │   │ Knowledge   │
+       │ Processing│    │ Processing  │   │ Processing  │
+       └─────┬─────┘    └──────┬──────┘   └──────┬──────┘
+             │                 │                 │
+             └─────────────────┼─────────────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Intelligence Layer  │
+                    │                     │
+                    │ • Summarization     │
+                    │ • Q&A               │
+                    │ • Evidence          │
+                    │ • Comparison        │
+                    │ • Contradictions    │
+                    │ • Insights           │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Structured Results  │
+                    └─────────────────────┘
+🛠️ Technology Stack
+Frontend
+TypeScript
+HTML
+CSS
+Modern JavaScript ecosystem
+Component-based UI architecture
+Backend
+Java
+Python
+AI / NLP
+Natural Language Processing
+Document Understanding
+Text Analysis
+Semantic Similarity
+Knowledge Extraction
+AI-powered Question Answering
+Evidence-based generation
+Development Tools
+Git
+GitHub
+Visual Studio Code
+npm
+REST APIs
+📂 Project Structure
+
+The repository is organized to separate the user interface, backend services, AI processing, and documentation.
+
+AI-Summarizer/
+│
+├── 📁 frontend/
+│   ├── 📁 public/
+│   ├── 📁 src/
+│   │   ├── 📁 components/
+│   │   ├── 📁 pages/
+│   │   ├── 📁 services/
+│   │   ├── 📁 utils/
+│   │   └── ...
+│   │
+│   ├── 📁 dist/
+│   ├── 📄 index.html
+│   ├── 📄 package.json
+│   ├── 📄 package-lock.json
+│   └── 📄 .env.example
+│
+├── 📁 backend/
+│   ├── 📁 src/
+│   ├── 📁 controllers/
+│   ├── 📁 services/
+│   ├── 📁 models/
+│   └── ...
+│
+├── 📁 ai/
+│   ├── 📁 models/
+│   ├── 📁 processing/
+│   ├── 📁 summarization/
+│   ├── 📁 qa/
+│   └── ...
+│
+├── 📁 docs/
+│   ├── architecture/
+│   ├── documentation/
+│   └── diagrams/
+│
+├── 📄 .gitignore
+├── 📄 README.md
+└── 📄 LICENSE
+
+Note: Keep the structure aligned with the actual folders in your repository. Do not create empty folders only for the README unless your implementation uses them.
+
+🔄 Application Workflow
+                 USER UPLOADS DOCUMENT
+                          │
+                          ▼
+                  Document Validation
+                          │
+                          ▼
+                  Text Extraction
+                          │
+                          ▼
+                Document Preprocessing
+                          │
+                          ▼
+                 Semantic Processing
+                          │
+             ┌────────────┼────────────┐
+             ▼            ▼            ▼
+        Summarization   Q&A       Knowledge
+             │            │            │
+             └────────────┼────────────┘
+                          ▼
+                Intelligence Layer
+                          │
+             ┌────────────┼─────────────┐
+             ▼            ▼             ▼
+         Evidence     Comparison   Contradiction
+             │            │             │
+             └────────────┼─────────────┘
+                          ▼
+                    User Dashboard
+🎯 Target Users
+
+ANTI-SUMMARY can be useful for:
+
+🎓 Students
+Understand study materials
+Prepare for examinations
+Generate structured notes
+Ask questions about textbooks
+Understand difficult concepts
+🔬 Researchers
+Analyze research papers
+Extract methodologies
+Compare papers
+Discover relationships
+Identify important findings
+💼 Professionals
+Analyze business reports
+Understand meeting documents
+Extract action items
+Compare reports
+Quickly understand long documents
+👨‍💻 Developers
+Understand technical documentation
+Analyze software specifications
+Compare technical documents
+Extract requirements
+Search project documentation
+⚖️ Policy & Legal Analysis
+Analyze policies
+Compare versions
+Identify conflicting statements
+Extract important clauses
+Search large documents
+🌍 Real-World Use Cases
+1. Research Paper Analysis
+
+Upload a research paper and ask:
+
+What problem does this research solve?
 
 What methodology was used?
 
 What are the limitations?
 
-What are the important findings?
+What are the major findings?
+2. Exam Preparation
 
-Explain this concept like I'm a beginner.
+Upload study material and generate:
 
-What evidence supports this conclusion?
+Essential Summary
+       ↓
+Important Concepts
+       ↓
+Possible Questions
+       ↓
+Detailed Explanations
+3. Business Intelligence
+
+Upload company reports and identify:
+
+Important metrics
+Major decisions
+Risks
+Trends
+Conclusions
+4. Technical Documentation
+
+Developers can use the system to understand:
+
+APIs
+Architecture documents
+Requirements
+System specifications
+Technical reports
+5. Document Version Comparison
+
+Compare:
+
+Policy Version 1
+        +
+Policy Version 2
+        ↓
+Changes
+Differences
+Common Information
+Potential Conflicts
+⭐ Advantages
+1. Beyond traditional summarization
+
+The platform provides multiple forms of document intelligence rather than only generating shorter text.
+
+2. Adaptive understanding
+
+Users can select the depth and style of explanation.
+
+3. Evidence-oriented
+
+Important answers can be connected back to source information.
+
+4. Multiple use cases
+
+The same platform can support education, research, business, and technical analysis.
+
+5. Saves time
+
+Users can find important information without reading an entire document manually.
+
+6. Interactive
+
+Users can ask questions instead of simply reading generated summaries.
+
+7. Scalable architecture
+
+The system is designed around separate frontend, backend, and AI processing layers.
+
+8. Extensible
+
+Additional AI models and document-processing capabilities can be integrated in the future.
+
+🔐 Reliability & Responsible AI
+
+ANTI-SUMMARY is designed with trustworthy document intelligence in mind.
+
+Important principles include:
+
+Source-aware responses
+Evidence tracing
+Context-based answers
+Contradiction detection
+Clear separation between extracted information and generated insights
+
+AI-generated content should still be reviewed by users, especially for:
+
+Legal decisions
+Medical information
+Financial decisions
+Academic research
+Critical business decisions
+💻 Local Installation
+1. Clone the repository
+git clone https://github.com/dhanushkaran5/AI-Summarizer.git
+2. Enter the project
+cd AI-Summarizer
+3. Install frontend dependencies
+cd frontend
+npm install
+4. Start the frontend
+npm run dev
+
+The development server will provide a local URL such as:
+
+http://localhost:5173
+⚙️ Environment Variables
+
+Create an environment file based on the project's .env.example.
+
+Example:
+
+API_URL=your_backend_api_url
+AI_API_KEY=your_ai_api_key
+Important
+
+Never commit secrets such as:
+
+API keys
+Database passwords
+Access tokens
+Private credentials
+
+Your .env file should remain in .gitignore.
+
+🏭 Production Build
+
+Inside the frontend directory:
+
+npm install
+npm run build
+
+This generates the production build, commonly inside:
+
+frontend/dist/
+
+To test the production build locally:
+
+npm run preview
+☁️ Deployment
+
+The project can be deployed using platforms that support modern frontend and backend applications.
+
+Frontend Deployment
+
+Recommended options include:
+
+Render
+Vercel
+Netlify
+
+For a frontend using Vite-style tooling:
+
+Build Command:
+npm install && npm run build
+
+Publish Directory:
+dist
+
+If deploying from the repository root while the frontend is inside frontend/:
+
+Root Directory:
+frontend
+
+Then:
+
+Build Command:
+npm install && npm run build
+
+Publish Directory:
+dist
+🔌 Backend Deployment
+
+The backend should be deployed separately when it requires a persistent server.
+
+Typical architecture:
+
+Frontend
+   │
+   │ HTTPS API
+   ▼
+Backend API
+   │
+   ├── Document Processing
+   ├── AI Processing
+   └── Data Layer
+
+The frontend environment variable should point to the deployed backend URL.
+
+Example:
+
+API_URL=https://your-backend-service.onrender.com
+🧪 Testing Strategy
+
+The application should be tested at multiple levels.
+
+Frontend Testing
+Page loading
+Navigation
+File upload
+Forms
+Responsive UI
+API communication
+Backend Testing
+API endpoints
+Authentication
+Document processing
+Error handling
+Input validation
+AI Testing
+Summary quality
+Question answering
+Evidence retrieval
+Contradiction detection
+Document comparison
+Deployment Testing
+
+Verify:
+
+Frontend
+   ↓
+Backend
+   ↓
+AI Service
+   ↓
+Database / Storage
+
+Every connection should work in the production environment.
+
+📊 Example User Journey
+1. Open ANTI-SUMMARY
+        ↓
+2. Upload document
+        ↓
+3. System processes document
+        ↓
+4. Select audience
+        ↓
+5. Select understanding level
+        ↓
+6. Generate analysis
+        ↓
+7. Ask questions
+        ↓
+8. Inspect evidence
+        ↓
+9. Compare documents
+        ↓
+10. Discover insights
+🔮 Future Enhancements
+
+The platform can be extended with:
+
+🤖 Advanced AI
+Multi-model AI support
+Local LLM support
+Agentic document analysis
+Improved reasoning pipelines
+📄 More Document Formats
+PDF
+DOCX
+TXT
+PPTX
+CSV
+Images
+Scanned documents
+🔍 Advanced Retrieval
+Vector databases
+Semantic search
+Hybrid search
+RAG pipelines
+🕸️ Knowledge Graph
+
+Visualize relationships:
+
+           ┌───────────┐
+           │  Concept  │
+           └─────┬─────┘
+                 │
+        ┌────────┼────────┐
+        ▼        ▼        ▼
+     Entity    Topic    Claim
+        │        │        │
+        └────────┼────────┘
+                 ▼
+              Evidence
+📊 Analytics Dashboard
+
+Future versions can provide:
+
+Document statistics
+Topic distribution
+Concept frequency
+Knowledge graphs
+Comparison dashboards
+🌐 Multilingual Support
+
+Support documents and questions in multiple languages.
+
+🏆 Why ANTI-SUMMARY?
+
+Traditional summarizers ask:
+
+"How can we make this document shorter?"
+
+ANTI-SUMMARY asks:
+
+"How can we make this document understandable?"
+
+That difference changes the entire approach.
+
+              TRADITIONAL SUMMARIZER
+
+                  Document
+                     │
+                     ▼
+                  Summary
+                     │
+                     ▼
+                    END
+
+
+                  ANTI-SUMMARY
+
+                  Document
+                     │
+                     ▼
+            ┌──────────────────┐
+            │ Intelligence     │
+            │ Layer             │
+            └────────┬─────────┘
+                     │
+       ┌─────────────┼──────────────┐
+       ▼             ▼              ▼
+   Summary          Q&A          Evidence
+       │             │              │
+       ▼             ▼              ▼
+ Comparison    Contradictions   Knowledge
+       │             │              │
+       └─────────────┼──────────────┘
+                     ▼
+                  Insights
+📌 Project Highlights
+Capability	ANTI-SUMMARY
+Document Summarization	✅
+Multi-Level Understanding	✅
+Audience-Specific Analysis	✅
+Document Q&A	✅
+Knowledge Extraction	✅
+Evidence Tracing	✅
+Contradiction Detection	✅
+Document Comparison	✅
+Semantic Analysis	✅
+Extensible AI Architecture	✅
+📈 Project Vision
+
+The long-term vision of ANTI-SUMMARY is to evolve from a document summarization tool into a complete:
+
+AI-powered Document Intelligence Platform
+
+The goal is to help users move through the entire information lifecycle:
+
+READ
+ ↓
+UNDERSTAND
+ ↓
+QUESTION
+ ↓
+VERIFY
+ ↓
+COMPARE
+ ↓
+CONNECT
+ ↓
+DISCOVER
+👨‍💻 Developer
+
+Dhanushkaran M
+
+Artificial Intelligence & Data Science Student
+
+Interested in:
+
+Artificial Intelligence
+Machine Learning
+Natural Language Processing
+Full-Stack Development
+Java
+Python
+Intelligent Applications
+📜 License
+
+This project is licensed under the MIT License.
+
+See the LICENSE file for details.
+
+⭐ Support the Project
+
+If you find ANTI-SUMMARY useful:
+
+⭐ Star the repository
+🍴 Fork the project
+🐛 Report issues
+💡 Suggest improvements
+🤝 Contribute new features
+
+🔗 Repository
+
+GitHub:
+
+https://github.com/dhanushkaran5/AI-Summarizer
+
+🚀 ANTI-SUMMARY
+From documents to understanding.
+
+Read less. Understand more. Discover deeper.
