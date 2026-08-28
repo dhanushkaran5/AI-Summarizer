@@ -1,867 +1,1185 @@
-# 🧠 ANTI-SUMMARY — Adaptive Document Intelligence Platform
+# 🧠 IntelliDoc AI
 
-> **Don't just summarize documents. Understand them. Question them. Compare them. Verify them.**
+### AI-Powered Document Intelligence, Summarization & RAG Assistant
 
-ANTI-SUMMARY is an intelligent document understanding platform designed to go beyond traditional summarization.
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-Document%20Intelligence-purple?style=for-the-badge" alt="AI Document Intelligence"/>
+  <img src="https://img.shields.io/badge/RAG-Enabled-blue?style=for-the-badge" alt="RAG"/>
+  <img src="https://img.shields.io/badge/LLM-Powered-green?style=for-the-badge" alt="LLM"/>
+  <img src="https://img.shields.io/badge/Java-Spring%20Boot-orange?style=for-the-badge&logo=springboot" alt="Spring Boot"/>
+  <img src="https://img.shields.io/badge/React-TypeScript-blue?style=for-the-badge&logo=react" alt="React"/>
+  <img src="https://img.shields.io/badge/Python-FastAPI-yellow?style=for-the-badge&logo=python" alt="FastAPI"/>
+</p>
 
-Instead of simply reducing a long document into a shorter version, the platform transforms documents into **multiple levels of understanding**, enabling users to summarize, analyze, question, compare, verify, and discover hidden insights from complex documents.
+<p align="center">
+  <strong>Upload. Understand. Ask. Verify. Compare.</strong>
+</p>
 
----
-
-## 🚀 Project Overview
-
-Modern documents are becoming increasingly complex.
-
-Students, researchers, developers, professionals, and organizations often spend significant time reading:
-
-- 📄 Research papers
-- 📚 Academic materials
-- 📝 Reports
-- 💼 Business documents
-- ⚖️ Policies and legal documents
-- 📊 Technical documentation
-- 📑 Meeting documents
-- 📖 Study materials
-
-Traditional summarization systems mainly answer:
-
-> **"What is this document about?"**
-
-ANTI-SUMMARY aims to answer much more:
-
-> **"What does this document mean?"**  
-> **"What are the important facts?"**  
-> **"Where did this information come from?"**  
-> **"Are there contradictions?"**  
-> **"What changes between two documents?"**  
-> **"What questions can I ask about it?"**  
-> **"What hidden relationships exist inside the document?"**
+<p align="center">
+  IntelliDoc AI transforms complex documents into structured summaries,
+  evidence-grounded answers, insights, and interactive knowledge.
+</p>
 
 ---
 
-# 🎯 Problem Statement
+## 📌 Overview
 
-Large documents contain valuable information, but extracting meaningful knowledge from them is difficult.
+**IntelliDoc AI** is a full-stack AI-powered document intelligence platform designed to help users understand and interact with large and complex documents.
 
-### Existing problems
+Unlike traditional document summarizers that simply generate a short summary, IntelliDoc AI combines **Large Language Models, Retrieval-Augmented Generation (RAG), semantic embeddings, vector search, and evidence verification** to provide reliable and context-aware document analysis.
 
-### 1. Information overload
-
-Users may need to read hundreds of pages to understand a single topic.
-
-### 2. Traditional summaries are limited
-
-A normal summary provides a shortened version of the document but may remove important context.
-
-### 3. Different users need different explanations
-
-A student, researcher, executive, developer, and beginner may require completely different levels of explanation.
-
-### 4. Difficult information retrieval
-
-Finding one specific fact inside a large document can require manually searching through many pages.
-
-### 5. Lack of evidence
-
-AI-generated answers can be difficult to trust if users cannot identify where the information originated.
-
-### 6. Document comparison is difficult
-
-Comparing multiple versions of reports, papers, policies, or technical documents manually is time-consuming.
-
-### 7. Hidden relationships are difficult to identify
-
-Important connections between concepts, entities, sections, and topics may not be obvious to the reader.
+Users can upload documents, generate adaptive summaries, ask questions, retrieve supporting evidence, verify AI-generated claims, compare multiple documents, and create personalized study material.
 
 ---
 
-# 💡 Proposed Solution
+## 🎯 Problem Statement
 
-ANTI-SUMMARY introduces an **Adaptive Document Intelligence Layer**.
+Modern users often work with large volumes of information such as:
 
-Instead of producing only one summary, the system creates multiple representations of the same document.
+* Research papers
+* Academic materials
+* Business reports
+* Technical documentation
+* Project reports
+* Policy documents
+* Resumes
+* Presentations
 
-### Multi-Level Understanding
+Manually reading and analyzing these documents is time-consuming.
 
-| Level | Purpose |
-|---|---|
-| Level 0 | Essential one-sentence understanding |
-| Level 1 | Executive-level overview |
-| Level 2 | Structured deep analysis |
-| Level 3 | Section-by-section understanding |
-| Level 4 | Technical and methodological analysis |
-| Level 5 | Knowledge-base / Q&A representation |
+Traditional AI summarization tools also have limitations:
 
-This allows users to choose **how deeply they want to understand a document**.
+* Generic summaries
+* Limited context
+* Hallucinated information
+* Lack of source references
+* Poor handling of multiple documents
+* Difficulty extracting actionable insights
 
----
-
-# ✨ Core Features
-
-## 🧠 1. Adaptive Multi-Level Summarization
-
-Generate different levels of summaries depending on the user's requirements.
-
-### Level 0 — Essence
-A single sentence explaining the central idea.
-
-### Level 1 — Executive
-High-level overview with important points.
-
-### Level 2 — Structured
-Detailed structured explanation.
-
-### Level 3 — Section Analysis
-Breaks the document down section by section.
-
-### Level 4 — Deep Technical
-Focuses on:
-
-- Methodology
-- Algorithms
-- Architecture
-- Technical decisions
-- Results
-- Limitations
-
-### Level 5 — Knowledge Base
-
-Transforms the document into a question-answerable knowledge representation.
+**IntelliDoc AI addresses these challenges by turning static documents into interactive, searchable, and evidence-grounded knowledge sources.**
 
 ---
 
-# 🎭 2. Specialized Audience Modes
+## 💡 Solution
 
-Different users require different explanations.
+IntelliDoc AI follows a complete document intelligence pipeline:
 
-ANTI-SUMMARY supports specialized understanding modes such as:
-
-- 👔 Executive
-- 🎓 Student
-- 🔬 Research
-- 💻 Technical
-- 🌱 Beginner / ELi5
-- 🗣️ Meeting
-- 📝 Exam Preparation
-- ⚖️ Legal & Policy
-- ⚙️ Custom
-
-The same document can therefore be explained differently depending on the user's purpose.
+```text
+Document Upload
+      │
+      ▼
+File Validation
+      │
+      ▼
+Text Extraction
+      │
+      ▼
+Text Cleaning & Processing
+      │
+      ▼
+Semantic Chunking
+      │
+      ▼
+Embedding Generation
+      │
+      ▼
+Vector Database
+      │
+      ├───────────────┐
+      ▼               ▼
+Summarization      RAG Retrieval
+      │               │
+      ▼               ▼
+Structured          Relevant
+Insights            Context
+                      │
+                      ▼
+                     LLM
+                      │
+              ┌───────┴────────┐
+              ▼                ▼
+         AI Response      Evidence Check
+              │                │
+              └───────┬────────┘
+                      ▼
+              Verified Response
+```
 
 ---
 
-# ❓ 3. Document Question Answering
+# ✨ Key Features
 
-Users can interact with uploaded documents using natural language.
+## 📄 1. Multi-Format Document Processing
+
+Upload and process multiple document formats:
+
+* PDF
+* DOCX
+* PPTX
+* TXT
+
+The processing pipeline extracts content while preserving useful metadata such as:
+
+* Page number
+* Section
+* Slide number
+* Document ID
+* Chunk ID
+
+---
+
+## 🧠 2. Adaptive AI Summarization
+
+IntelliDoc AI automatically identifies the type of document and generates a suitable summary structure.
+
+### Supported Document Types
+
+* Research Paper
+* Academic Notes
+* Business Report
+* Technical Documentation
+* Resume
+* Project Report
+* Policy Document
+* General Document
+
+### Summary Length
+
+* Brief
+* Standard
+* Detailed
+
+### Explanation Level
+
+* Beginner
+* Student
+* Professional
+* Expert
+
+For example, a research paper can be summarized as:
+
+```text
+Research Problem
+       ↓
+Objective
+       ↓
+Methodology
+       ↓
+Dataset
+       ↓
+Results
+       ↓
+Limitations
+       ↓
+Conclusion
+```
+
+---
+
+# 💬 3. RAG-Based Document Chat
+
+Interact with uploaded documents using natural language.
+
+Example questions:
+
+```text
+What is the main objective of this document?
+
+What methodology was used?
+
+What are the key findings?
+
+What are the limitations?
+
+Explain the conclusion in simple terms.
+```
+
+The system uses Retrieval-Augmented Generation instead of blindly passing the complete document to the LLM.
+
+```text
+User Question
+      ↓
+Question Embedding
+      ↓
+Semantic Search
+      ↓
+Top-K Relevant Chunks
+      ↓
+Context Construction
+      ↓
+LLM
+      ↓
+Grounded Answer
+```
+
+---
+
+# 🔎 4. Source-Cited AI Answers
+
+AI responses can include supporting document references.
 
 Example:
 
 ```text
-What is the main objective of this document?
-🔎 4. Evidence & Source Verification
+Answer:
 
-One of the key goals of ANTI-SUMMARY is to make AI-generated information more trustworthy.
+The proposed system uses a Transformer-based architecture
+for document classification.
 
-The system can associate generated insights with the relevant document context.
+Sources:
 
-This helps users understand:
-Answer
-   ↓
-Supporting Information
-   ↓
-Document Section
-   ↓
-Original Context
-⚠️ 5. Contradiction Detection
+📄 Page 8
+📄 Page 11
+```
 
-The platform can analyze document content for potentially conflicting statements.
+Each document chunk maintains metadata such as:
+
+```text
+document_id
+page_number
+section
+chunk_id
+source
+```
+
+This makes AI responses easier to inspect and validate.
+
+---
+
+# 🛡️ 5. AI Evidence Verification
+
+One of the core differentiating features of IntelliDoc AI is its evidence verification layer.
+
+Instead of trusting every generated response, the system evaluates whether the answer is supported by retrieved document evidence.
+
+```text
+User Question
+      ↓
+RAG Retrieval
+      ↓
+LLM Answer
+      ↓
+Claim Extraction
+      ↓
+Evidence Matching
+      ↓
+Verification
+      ↓
+Final Response
+```
+
+### Verification States
+
+| Status                 | Meaning                                 |
+| ---------------------- | --------------------------------------- |
+| ✅ Supported            | Claim is supported by document evidence |
+| ⚠️ Partially Supported | Only part of the claim is supported     |
+| ❌ Unsupported          | Sufficient evidence was not found       |
+
+This helps reduce the risk of unsupported AI-generated information.
+
+---
+
+# 📚 6. Multi-Document Intelligence
+
+Create collections containing multiple documents.
 
 Example:
 
-Statement A:
-The system requires 8GB RAM.
+```text
+AI Research Collection
+│
+├── Research_Paper_01.pdf
+├── Research_Paper_02.pdf
+├── Research_Paper_03.pdf
+└── Research_Paper_04.pdf
+```
 
-Statement B:
-The minimum requirement is 16GB RAM.
-
-↓
-Potential contradiction detected
-
-This can be useful when analyzing:
-
-Reports
-Research papers
-Policies
-Technical documents
-Multiple document versions
-🔄 6. Document Comparison
-
-Compare multiple documents to identify:
-
-Added information
-Removed information
-Changed statements
-Different conclusions
-Common concepts
-Conflicting information
+Users can ask questions across the entire collection.
 
 Example:
 
-Document A
-      ↓
-   Compare
-      ↓
-Document B
-      ↓
-Differences + Similarities + Insights
-🕸️ 7. Semantic Knowledge Discovery
+> Compare the methodologies used in these research papers.
 
-The platform is designed to move beyond plain text processing.
+The system retrieves information from multiple documents and generates a structured comparison.
 
-It can identify relationships between:
+---
 
-Concepts
-Topics
-Entities
-Sections
-Claims
-Evidence
+# 🎓 7. AI Study Mode
 
-This creates a foundation for building a semantic knowledge graph.
+Convert documents into personalized study material.
 
-📚 8. Knowledge Extraction
+Generate:
 
-Important information can be extracted from documents, including:
+* MCQs
+* Short-answer questions
+* Long-answer questions
+* Viva questions
+* Flashcards
+* Important definitions
+* Key concepts
 
-Key concepts
-Important facts
-Topics
-Entities
-Claims
-Relationships
-Questions
-Conclusions
-Supporting evidence
-🧩 9. Intelligent Document Understanding
+Difficulty levels:
 
-Instead of treating a document as plain text, ANTI-SUMMARY treats it as a structured source of knowledge.
+```text
+Easy
+Medium
+Hard
+```
 
-Traditional approach
+The generated questions and explanations remain grounded in the uploaded document.
+
+---
+
+# 📊 8. Document Intelligence Dashboard
+
+The platform provides document-level analytics.
+
+### Metrics
+
+* Page count
+* Word count
+* Character count
+* Estimated reading time
+* Number of sections
+* Number of chunks
+* Important keywords
+* Key concepts
+
+Example:
+
+```text
+┌─────────────────────────────────────┐
+│         DOCUMENT INTELLIGENCE       │
+├─────────────────────────────────────┤
+│ Pages          42                   │
+│ Words          18,432               │
+│ Reading Time   1h 20m               │
+│ Sections       12                   │
+│ Key Concepts   37                   │
+└─────────────────────────────────────┘
+```
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                         ┌──────────────────────┐
+                         │      React UI        │
+                         │   TypeScript/Vite    │
+                         └──────────┬───────────┘
+                                    │
+                               REST API
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │    Spring Boot       │
+                         │      Backend         │
+                         └──────────┬───────────┘
+                                    │
+              ┌─────────────────────┼─────────────────────┐
+              │                     │                     │
+              ▼                     ▼                     ▼
+        PostgreSQL            Authentication          AI Service
+                                                           │
+                                                           ▼
+                                                  ┌────────────────┐
+                                                  │ Python FastAPI │
+                                                  └───────┬────────┘
+                                                          │
+                           ┌──────────────────────────────┼───────────────────────┐
+                           │                              │                       │
+                           ▼                              ▼                       ▼
+                    Document Parser                  Embeddings                 LLM
+                           │                              │                       │
+                           │                              ▼                       │
+                           │                       Vector Database              │
+                           │                              │                       │
+                           └──────────────────────────────┼───────────────────────┘
+                                                          ▼
+                                                    RAG Pipeline
+                                                          │
+                                                          ▼
+                                               Evidence Verification
+```
+
+---
+
+# 🧰 Technology Stack
+
+## Frontend
+
+| Technology   | Purpose               |
+| ------------ | --------------------- |
+| React        | User Interface        |
+| TypeScript   | Type-safe development |
+| Vite         | Frontend tooling      |
+| Tailwind CSS | UI styling            |
+| Axios        | API communication     |
+| React Router | Client-side routing   |
+
+## Backend
+
+| Technology      | Purpose                        |
+| --------------- | ------------------------------ |
+| Java            | Backend development            |
+| Spring Boot     | REST API framework             |
+| Spring Security | Authentication & authorization |
+| Spring Data JPA | Database interaction           |
+| JWT             | Stateless authentication       |
+| PostgreSQL      | Relational database            |
+
+## AI Service
+
+| Technology      | Purpose                     |
+| --------------- | --------------------------- |
+| Python          | AI/NLP development          |
+| FastAPI         | AI microservice             |
+| LLM             | Natural language generation |
+| Embeddings      | Semantic representation     |
+| RAG             | Context-aware generation    |
+| Vector Database | Semantic retrieval          |
+
+## DevOps
+
+| Technology     | Purpose                     |
+| -------------- | --------------------------- |
+| Git            | Version control             |
+| GitHub         | Source code management      |
+| Docker         | Containerization            |
+| Docker Compose | Multi-service orchestration |
+
+---
+
+# 📁 Project Structure
+
+```text
+intellidoc-ai/
+│
+├── frontend/
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── layouts/
+│       ├── hooks/
+│       ├── services/
+│       ├── types/
+│       └── utils/
+│
+├── backend/
+│   └── src/
+│       └── main/
+│           ├── java/
+│           │   └── com/
+│           │       └── intellidoc/
+│           │           ├── controller/
+│           │           ├── service/
+│           │           ├── repository/
+│           │           ├── entity/
+│           │           ├── dto/
+│           │           ├── security/
+│           │           ├── exception/
+│           │           └── config/
+│           │
+│           └── resources/
+│
+├── ai-service/
+│   └── app/
+│       ├── api/
+│       ├── loaders/
+│       ├── embeddings/
+│       ├── vectorstore/
+│       ├── rag/
+│       ├── summarizer/
+│       ├── verification/
+│       └── main.py
+│
+├── database/
+│   ├── schema.sql
+│   └── seed.sql
+│
+├── screenshots/
+│
+├── uploads/
+│
+├── docker-compose.yml
+├── .env.example
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+---
+
+# 🔄 Document Processing Pipeline
+
+### 1. Upload
+
+User uploads a supported document.
+
+### 2. Validation
+
+The system validates:
+
+* File type
+* MIME type
+* File size
+* File integrity
+
+### 3. Extraction
+
+Text is extracted from the document.
+
+### 4. Metadata Processing
+
+Page, section, slide, and document metadata are preserved where available.
+
+### 5. Chunking
+
+Large documents are divided into manageable semantic chunks.
+
+### 6. Embedding Generation
+
+Each chunk is converted into a vector representation.
+
+### 7. Vector Storage
+
+Embeddings and metadata are stored in the vector database.
+
+### 8. AI Processing
+
+The system generates:
+
+* Summary
+* Key points
+* Keywords
+* Insights
+
+### 9. RAG Retrieval
+
+Relevant chunks are retrieved when the user asks a question.
+
+### 10. Evidence Verification
+
+Generated claims are checked against retrieved evidence.
+
+---
+
+# 🧠 RAG Architecture
+
+Traditional LLM approach:
+
+```text
+Document → LLM → Answer
+```
+
+IntelliDoc AI:
+
+```text
 Document
    ↓
-Text
+Text Extraction
    ↓
-Summary
-ANTI-SUMMARY approach
-                    ┌── Summary
-                    ├── Questions
-Document ───────────┼── Evidence
-                    ├── Contradictions
-                    ├── Comparison
-                    ├── Knowledge
-                    └── Insights
-🏗️ System Architecture
-                    ┌─────────────────────┐
-                    │       USER          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Web Application   │
-                    │   Frontend / UI     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Application API   │
-                    └──────────┬──────────┘
-                               │
-             ┌─────────────────┼─────────────────┐
-             │                 │                 │
-             ▼                 ▼                 ▼
-       ┌───────────┐    ┌─────────────┐   ┌─────────────┐
-       │ Document  │    │ AI/NLP      │   │ Knowledge   │
-       │ Processing│    │ Processing  │   │ Processing  │
-       └─────┬─────┘    └──────┬──────┘   └──────┬──────┘
-             │                 │                 │
-             └─────────────────┼─────────────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Intelligence Layer  │
-                    │                     │
-                    │ • Summarization     │
-                    │ • Q&A               │
-                    │ • Evidence          │
-                    │ • Comparison        │
-                    │ • Contradictions    │
-                    │ • Insights           │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Structured Results  │
-                    └─────────────────────┘
-🛠️ Technology Stack
-Frontend
-TypeScript
-HTML
-CSS
-Modern JavaScript ecosystem
-Component-based UI architecture
-Backend
-Java
-Python
-AI / NLP
-Natural Language Processing
-Document Understanding
-Text Analysis
-Semantic Similarity
-Knowledge Extraction
-AI-powered Question Answering
-Evidence-based generation
-Development Tools
-Git
-GitHub
-Visual Studio Code
-npm
-REST APIs
-📂 Project Structure
+Chunking
+   ↓
+Embeddings
+   ↓
+Vector Database
+   ↓
+Semantic Retrieval
+   ↓
+Relevant Context
+   ↓
+LLM
+   ↓
+Grounded Answer
+   ↓
+Evidence Verification
+```
 
-The repository is organized to separate the user interface, backend services, AI processing, and documentation.
+### Why RAG?
 
-AI-Summarizer/
-│
-├── 📁 frontend/
-│   ├── 📁 public/
-│   ├── 📁 src/
-│   │   ├── 📁 components/
-│   │   ├── 📁 pages/
-│   │   ├── 📁 services/
-│   │   ├── 📁 utils/
-│   │   └── ...
-│   │
-│   ├── 📁 dist/
-│   ├── 📄 index.html
-│   ├── 📄 package.json
-│   ├── 📄 package-lock.json
-│   └── 📄 .env.example
-│
-├── 📁 backend/
-│   ├── 📁 src/
-│   ├── 📁 controllers/
-│   ├── 📁 services/
-│   ├── 📁 models/
-│   └── ...
-│
-├── 📁 ai/
-│   ├── 📁 models/
-│   ├── 📁 processing/
-│   ├── 📁 summarization/
-│   ├── 📁 qa/
-│   └── ...
-│
-├── 📁 docs/
-│   ├── architecture/
-│   ├── documentation/
-│   └── diagrams/
-│
-├── 📄 .gitignore
-├── 📄 README.md
-└── 📄 LICENSE
+RAG provides:
 
-Note: Keep the structure aligned with the actual folders in your repository. Do not create empty folders only for the README unless your implementation uses them.
+* Better contextual retrieval
+* Large-document support
+* Source references
+* Domain-specific responses
+* Reduced hallucination risk
 
-🔄 Application Workflow
-                 USER UPLOADS DOCUMENT
-                          │
-                          ▼
-                  Document Validation
-                          │
-                          ▼
-                  Text Extraction
-                          │
-                          ▼
-                Document Preprocessing
-                          │
-                          ▼
-                 Semantic Processing
-                          │
-             ┌────────────┼────────────┐
-             ▼            ▼            ▼
-        Summarization   Q&A       Knowledge
-             │            │            │
-             └────────────┼────────────┘
-                          ▼
-                Intelligence Layer
-                          │
-             ┌────────────┼─────────────┐
-             ▼            ▼             ▼
-         Evidence     Comparison   Contradiction
-             │            │             │
-             └────────────┼─────────────┘
-                          ▼
-                    User Dashboard
-🎯 Target Users
+---
 
-ANTI-SUMMARY can be useful for:
+# 🔐 Security
 
-🎓 Students
-Understand study materials
-Prepare for examinations
-Generate structured notes
-Ask questions about textbooks
-Understand difficult concepts
-🔬 Researchers
-Analyze research papers
-Extract methodologies
-Compare papers
-Discover relationships
-Identify important findings
-💼 Professionals
-Analyze business reports
-Understand meeting documents
-Extract action items
-Compare reports
-Quickly understand long documents
-👨‍💻 Developers
-Understand technical documentation
-Analyze software specifications
-Compare technical documents
-Extract requirements
-Search project documentation
-⚖️ Policy & Legal Analysis
-Analyze policies
-Compare versions
-Identify conflicting statements
-Extract important clauses
-Search large documents
-🌍 Real-World Use Cases
-1. Research Paper Analysis
+Security is treated as a core part of the platform.
 
-Upload a research paper and ask:
+### Implemented Security Practices
 
-What problem does this research solve?
+* JWT authentication
+* Password hashing
+* Authorization
+* Input validation
+* File validation
+* File-size restrictions
+* Secure file handling
+* CORS configuration
+* Environment-based secrets
+* API key protection
 
-What methodology was used?
-
-What are the limitations?
-
-What are the major findings?
-2. Exam Preparation
-
-Upload study material and generate:
-
-Essential Summary
-       ↓
-Important Concepts
-       ↓
-Possible Questions
-       ↓
-Detailed Explanations
-3. Business Intelligence
-
-Upload company reports and identify:
-
-Important metrics
-Major decisions
-Risks
-Trends
-Conclusions
-4. Technical Documentation
-
-Developers can use the system to understand:
-
-APIs
-Architecture documents
-Requirements
-System specifications
-Technical reports
-5. Document Version Comparison
-
-Compare:
-
-Policy Version 1
-        +
-Policy Version 2
-        ↓
-Changes
-Differences
-Common Information
-Potential Conflicts
-⭐ Advantages
-1. Beyond traditional summarization
-
-The platform provides multiple forms of document intelligence rather than only generating shorter text.
-
-2. Adaptive understanding
-
-Users can select the depth and style of explanation.
-
-3. Evidence-oriented
-
-Important answers can be connected back to source information.
-
-4. Multiple use cases
-
-The same platform can support education, research, business, and technical analysis.
-
-5. Saves time
-
-Users can find important information without reading an entire document manually.
-
-6. Interactive
-
-Users can ask questions instead of simply reading generated summaries.
-
-7. Scalable architecture
-
-The system is designed around separate frontend, backend, and AI processing layers.
-
-8. Extensible
-
-Additional AI models and document-processing capabilities can be integrated in the future.
-
-🔐 Reliability & Responsible AI
-
-ANTI-SUMMARY is designed with trustworthy document intelligence in mind.
-
-Important principles include:
-
-Source-aware responses
-Evidence tracing
-Context-based answers
-Contradiction detection
-Clear separation between extracted information and generated insights
-
-AI-generated content should still be reviewed by users, especially for:
-
-Legal decisions
-Medical information
-Financial decisions
-Academic research
-Critical business decisions
-💻 Local Installation
-1. Clone the repository
-git clone https://github.com/dhanushkaran5/AI-Summarizer.git
-2. Enter the project
-cd AI-Summarizer
-3. Install frontend dependencies
-cd frontend
-npm install
-4. Start the frontend
-npm run dev
-
-The development server will provide a local URL such as:
-
-http://localhost:5173
-⚙️ Environment Variables
-
-Create an environment file based on the project's .env.example.
-
-Example:
-
-API_URL=your_backend_api_url
-AI_API_KEY=your_ai_api_key
-Important
+### Environment Variables
 
 Never commit secrets such as:
 
-API keys
-Database passwords
-Access tokens
-Private credentials
+```env
+OPENAI_API_KEY=
+GEMINI_API_KEY=
+JWT_SECRET=
+DATABASE_PASSWORD=
+```
 
-Your .env file should remain in .gitignore.
+Use `.env` files or secure deployment environment variables.
 
-🏭 Production Build
+---
 
-Inside the frontend directory:
+# ⚙️ Getting Started
+
+## Prerequisites
+
+Make sure the following are installed:
+
+* Java 17+
+* Node.js 20+
+* Python 3.11+
+* PostgreSQL
+* Git
+* Docker *(recommended)*
+
+---
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/<your-username>/intellidoc-ai.git
+
+cd intellidoc-ai
+```
+
+---
+
+## 2. Configure Environment Variables
+
+Copy the example configuration:
+
+```bash
+cp .env.example .env
+```
+
+Configure the required values:
+
+```env
+DATABASE_URL=
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
+
+JWT_SECRET=
+
+AI_PROVIDER=
+LLM_API_KEY=
+
+EMBEDDING_MODEL=
+VECTOR_DB_URL=
+
+AI_SERVICE_URL=
+
+CHUNK_SIZE=
+CHUNK_OVERLAP=
+TOP_K=
+SIMILARITY_THRESHOLD=
+```
+
+---
+
+# 3. Start Database
+
+Using Docker:
+
+```bash
+docker compose up -d postgres
+```
+
+Or configure PostgreSQL locally.
+
+---
+
+# 4. Start AI Service
+
+```bash
+cd ai-service
+
+python -m venv venv
+```
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Linux/macOS
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the service:
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+---
+
+# 5. Start Spring Boot Backend
+
+```bash
+cd backend
+```
+
+### Linux/macOS
+
+```bash
+./mvnw spring-boot:run
+```
+
+### Windows
+
+```bash
+mvnw.cmd spring-boot:run
+```
+
+---
+
+# 6. Start Frontend
+
+```bash
+cd frontend
 
 npm install
-npm run build
 
-This generates the production build, commonly inside:
+npm run dev
+```
 
-frontend/dist/
+---
 
-To test the production build locally:
+# 🐳 Docker
 
-npm run preview
-☁️ Deployment
+For a complete containerized setup:
 
-The project can be deployed using platforms that support modern frontend and backend applications.
+```bash
+docker compose up --build
+```
 
-Frontend Deployment
+The Docker environment can run:
 
-Recommended options include:
-
-Render
-Vercel
-Netlify
-
-For a frontend using Vite-style tooling:
-
-Build Command:
-npm install && npm run build
-
-Publish Directory:
-dist
-
-If deploying from the repository root while the frontend is inside frontend/:
-
-Root Directory:
-frontend
-
-Then:
-
-Build Command:
-npm install && npm run build
-
-Publish Directory:
-dist
-🔌 Backend Deployment
-
-The backend should be deployed separately when it requires a persistent server.
-
-Typical architecture:
-
+```text
 Frontend
-   │
-   │ HTTPS API
-   ▼
-Backend API
-   │
-   ├── Document Processing
-   ├── AI Processing
-   └── Data Layer
-
-The frontend environment variable should point to the deployed backend URL.
-
-Example:
-
-API_URL=https://your-backend-service.onrender.com
-🧪 Testing Strategy
-
-The application should be tested at multiple levels.
-
-Frontend Testing
-Page loading
-Navigation
-File upload
-Forms
-Responsive UI
-API communication
-Backend Testing
-API endpoints
-Authentication
-Document processing
-Error handling
-Input validation
-AI Testing
-Summary quality
-Question answering
-Evidence retrieval
-Contradiction detection
-Document comparison
-Deployment Testing
-
-Verify:
-
-Frontend
-   ↓
 Backend
-   ↓
 AI Service
-   ↓
-Database / Storage
+PostgreSQL
+Vector Database
+```
 
-Every connection should work in the production environment.
+---
 
-📊 Example User Journey
-1. Open ANTI-SUMMARY
-        ↓
-2. Upload document
-        ↓
-3. System processes document
-        ↓
-4. Select audience
-        ↓
-5. Select understanding level
-        ↓
-6. Generate analysis
-        ↓
-7. Ask questions
-        ↓
-8. Inspect evidence
-        ↓
-9. Compare documents
-        ↓
-10. Discover insights
-🔮 Future Enhancements
+# 🔌 API Overview
 
-The platform can be extended with:
+## Authentication
 
-🤖 Advanced AI
-Multi-model AI support
-Local LLM support
-Agentic document analysis
-Improved reasoning pipelines
-📄 More Document Formats
-PDF
-DOCX
-TXT
-PPTX
-CSV
-Images
-Scanned documents
-🔍 Advanced Retrieval
-Vector databases
-Semantic search
-Hybrid search
-RAG pipelines
-🕸️ Knowledge Graph
+```http
+POST /api/auth/register
+POST /api/auth/login
+```
 
-Visualize relationships:
+## Documents
 
-           ┌───────────┐
-           │  Concept  │
-           └─────┬─────┘
-                 │
-        ┌────────┼────────┐
-        ▼        ▼        ▼
-     Entity    Topic    Claim
-        │        │        │
-        └────────┼────────┘
-                 ▼
-              Evidence
-📊 Analytics Dashboard
+```http
+POST   /api/documents/upload
+GET    /api/documents
+GET    /api/documents/{id}
+DELETE /api/documents/{id}
+GET    /api/documents/{id}/status
+```
 
-Future versions can provide:
+## AI
 
-Document statistics
-Topic distribution
-Concept frequency
-Knowledge graphs
-Comparison dashboards
-🌐 Multilingual Support
+```http
+POST /api/documents/{id}/summarize
+POST /api/documents/{id}/chat
+POST /api/documents/{id}/verify
+POST /api/documents/{id}/study-material
+```
 
-Support documents and questions in multiple languages.
+## Collections
 
-🏆 Why ANTI-SUMMARY?
+```http
+POST /api/collections
+GET  /api/collections
 
-Traditional summarizers ask:
+POST /api/collections/{id}/documents
+POST /api/collections/{id}/chat
+POST /api/collections/{id}/compare
+```
 
-"How can we make this document shorter?"
+---
 
-ANTI-SUMMARY asks:
+# 🧪 Testing
 
-"How can we make this document understandable?"
+Testing is performed at multiple levels.
 
-That difference changes the entire approach.
+## Backend
 
-              TRADITIONAL SUMMARIZER
+* Authentication tests
+* Authorization tests
+* Controller tests
+* Service tests
+* Repository tests
+* API integration tests
 
-                  Document
-                     │
-                     ▼
-                  Summary
-                     │
-                     ▼
-                    END
+## AI Service
 
+* Document extraction tests
+* Chunking tests
+* Embedding tests
+* Retrieval tests
+* RAG tests
+* Summarization tests
+* Evidence verification tests
 
-                  ANTI-SUMMARY
+## Frontend
 
-                  Document
-                     │
-                     ▼
-            ┌──────────────────┐
-            │ Intelligence     │
-            │ Layer             │
-            └────────┬─────────┘
-                     │
-       ┌─────────────┼──────────────┐
-       ▼             ▼              ▼
-   Summary          Q&A          Evidence
-       │             │              │
-       ▼             ▼              ▼
- Comparison    Contradictions   Knowledge
-       │             │              │
-       └─────────────┼──────────────┘
-                     ▼
-                  Insights
-📌 Project Highlights
-Capability	ANTI-SUMMARY
-Document Summarization	✅
-Multi-Level Understanding	✅
-Audience-Specific Analysis	✅
-Document Q&A	✅
-Knowledge Extraction	✅
-Evidence Tracing	✅
-Contradiction Detection	✅
-Document Comparison	✅
-Semantic Analysis	✅
-Extensible AI Architecture	✅
-📈 Project Vision
+* Component tests
+* Upload workflow tests
+* Chat tests
+* Authentication tests
+* UI state tests
 
-The long-term vision of ANTI-SUMMARY is to evolve from a document summarization tool into a complete:
+---
 
-AI-powered Document Intelligence Platform
+# 📈 Performance & Scalability
 
-The goal is to help users move through the entire information lifecycle:
+The system is designed to support large document workloads.
 
-READ
- ↓
-UNDERSTAND
- ↓
-QUESTION
- ↓
-VERIFY
- ↓
-COMPARE
- ↓
-CONNECT
- ↓
-DISCOVER
-👨‍💻 Developer
+### Performance considerations
 
-Dhanushkaran M
+* Asynchronous document processing
+* Batch embedding generation
+* Configurable chunk size
+* Configurable retrieval count
+* Database indexing
+* Pagination
+* Cached summaries
+* Background processing
+* Vector search optimization
 
-Artificial Intelligence & Data Science Student
+Large documents are not blindly sent to the LLM in a single request.
 
-Interested in:
+---
 
-Artificial Intelligence
-Machine Learning
-Natural Language Processing
-Full-Stack Development
-Java
-Python
-Intelligent Applications
-📜 License
+# 🖥️ Application Workflow
 
-This project is licensed under the MIT License.
+```text
+Landing Page
+     ↓
+Register / Login
+     ↓
+Dashboard
+     ↓
+Upload Document
+     ↓
+Document Processing
+     ↓
+AI Summary
+     ↓
+Document Insights
+     ↓
+RAG Chat
+     ↓
+Source Citations
+     ↓
+Evidence Verification
+     ↓
+Study Mode
+     ↓
+Multi-Document Collections
+     ↓
+Document Comparison
+```
 
-See the LICENSE file for details.
+---
 
-⭐ Support the Project
+# 📸 Screenshots
 
-If you find ANTI-SUMMARY useful:
+> Add screenshots of the actual application here.
 
-⭐ Star the repository
-🍴 Fork the project
-🐛 Report issues
-💡 Suggest improvements
-🤝 Contribute new features
+### Landing Page
 
-🔗 Repository
+![Landing Page](screenshots/landing.png)
 
-GitHub:
+### Dashboard
 
-https://github.com/dhanushkaran5/AI-Summarizer
+![Dashboard](screenshots/dashboard.png)
 
-🚀 ANTI-SUMMARY
-From documents to understanding.
+### Document Analysis
 
-Read less. Understand more. Discover deeper.
+![Document Analysis](screenshots/document-analysis.png)
+
+### RAG Chat
+
+![RAG Chat](screenshots/rag-chat.png)
+
+### Evidence Verification
+
+![Evidence Verification](screenshots/evidence-verification.png)
+
+### Document Comparison
+
+![Document Comparison](screenshots/document-comparison.png)
+
+---
+
+# 🗺️ Roadmap
+
+## Phase 1 — Foundation
+
+* [ ] Project architecture
+* [ ] Database setup
+* [ ] Authentication
+* [ ] User management
+
+## Phase 2 — Document Intelligence
+
+* [ ] PDF processing
+* [ ] DOCX processing
+* [ ] PPTX processing
+* [ ] TXT processing
+* [ ] Metadata extraction
+* [ ] Document analytics
+
+## Phase 3 — AI Summarization
+
+* [ ] Document classification
+* [ ] Adaptive summarization
+* [ ] Key point extraction
+* [ ] Keyword extraction
+* [ ] Insight generation
+
+## Phase 4 — RAG
+
+* [ ] Text chunking
+* [ ] Embedding generation
+* [ ] Vector database
+* [ ] Semantic search
+* [ ] RAG chatbot
+* [ ] Source citations
+
+## Phase 5 — AI Reliability
+
+* [ ] Claim extraction
+* [ ] Evidence matching
+* [ ] Hallucination detection
+* [ ] Evidence confidence
+
+## Phase 6 — Advanced Features
+
+* [ ] Multi-document collections
+* [ ] Document comparison
+* [ ] AI study mode
+* [ ] Flashcards
+* [ ] MCQ generation
+
+## Phase 7 — Production
+
+* [ ] Automated testing
+* [ ] Docker
+* [ ] CI/CD
+* [ ] Monitoring
+* [ ] Security audit
+* [ ] Cloud deployment
+
+---
+
+# 🔮 Future Enhancements
+
+Planned future capabilities include:
+
+* 🌍 Multilingual document summarization
+* 🎙️ Voice-based document interaction
+* 🕸️ Knowledge graph generation
+* 📷 OCR for scanned documents
+* ✍️ Handwritten document analysis
+* 🔗 Citation graph generation
+* 🔍 Advanced document version comparison
+* 🧠 Local/private LLM support
+* 👥 Team collaboration
+* 🔐 Enterprise access control
+* 📊 Advanced AI evaluation
+* 📑 Automatic presentation generation
+
+---
+
+# 📊 AI Evaluation
+
+The project will evaluate AI quality using measurable metrics instead of relying only on subjective output.
+
+Potential metrics include:
+
+| Metric                | Purpose                                   |
+| --------------------- | ----------------------------------------- |
+| Retrieval Precision   | Measures relevance of retrieved chunks    |
+| Retrieval Recall      | Measures coverage of relevant information |
+| Answer Grounding      | Measures evidence support                 |
+| Verification Accuracy | Measures claim verification quality       |
+| Summary Quality       | Evaluates generated summaries             |
+| Response Latency      | Measures AI response time                 |
+
+> Performance numbers should only be published after reproducible benchmarking.
+
+---
+
+# 🧑‍💻 Engineering Principles
+
+IntelliDoc AI follows several engineering principles:
+
+### Functionality First
+
+A feature is considered complete only when it works end-to-end.
+
+### Evidence Over Assumption
+
+AI responses should be grounded in retrieved document content whenever document-based answers are requested.
+
+### Security by Design
+
+Secrets, authentication, authorization, and file handling are treated as core engineering concerns.
+
+### Modular Architecture
+
+The frontend, backend, AI service, database, and vector storage are separated into maintainable components.
+
+### Test Before Release
+
+Important functionality should be validated through automated tests and end-to-end testing.
+
+### No Fake AI
+
+Development/mock responses must be clearly identified and must never be presented as real AI inference.
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+### Development Workflow
+
+```bash
+git checkout -b feature/your-feature
+
+git add .
+
+git commit -m "feat: add document comparison"
+
+git push origin feature/your-feature
+```
+
+Then create a Pull Request.
+
+### Contribution Guidelines
+
+* Follow the existing project architecture.
+* Write clean and maintainable code.
+* Add tests for important features.
+* Do not commit API keys or credentials.
+* Update documentation when necessary.
+* Use meaningful commit messages.
+
+---
+
+# 🐛 Bug Reports
+
+If you find a bug:
+
+1. Check existing issues.
+2. Create a new issue.
+3. Describe the problem clearly.
+4. Provide reproduction steps.
+5. Attach screenshots or logs when useful.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+# 👨‍💻 Author
+
+**Your Name**
+
+AI Engineer • Full-Stack Developer • Java • Spring Boot • React • LLM • RAG
+
+### Technical Interests
+
+* Artificial Intelligence
+* Generative AI
+* Large Language Models
+* Retrieval-Augmented Generation
+* NLP
+* Backend Engineering
+* Full-Stack Development
+* Software Architecture
+
+---
+
+# ⭐ Project Highlights
+
+```text
+┌──────────────────────────────────────────────┐
+│              INTELLIDOC AI                   │
+├──────────────────────────────────────────────┤
+│                                              │
+│  📄 Document Processing                      │
+│  🧠 Adaptive AI Summarization                │
+│  💬 RAG Document Chat                        │
+│  🔎 Source-Cited Answers                     │
+│  🛡️ Evidence Verification                   │
+│  📚 Multi-Document Intelligence              │
+│  🎓 AI Study Mode                            │
+│  📊 Document Analytics                       │
+│                                              │
+│  React + Spring Boot + Python + PostgreSQL   │
+│  LLM + Embeddings + Vector Search + RAG      │
+│                                              │
+└──────────────────────────────────────────────┘
+```
+
+<p align="center">
+
+### 🚀 IntelliDoc AI
+
+**Turning static documents into intelligent, searchable knowledge.**
+
+⭐ Star the repository if you find the project interesting.
+
+</p>
