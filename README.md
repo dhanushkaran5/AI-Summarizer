@@ -628,16 +628,6 @@ Security is treated as a core part of the platform.
 * Environment-based secrets
 * API key protection
 
-### Environment Variables
-
-Never commit secrets such as:
-
-```env
-OPENAI_API_KEY=
-GEMINI_API_KEY=
-JWT_SECRET=
-DATABASE_PASSWORD=
-```
 
 Use `.env` files or secure deployment environment variables.
 
@@ -661,45 +651,13 @@ Make sure the following are installed:
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/intellidoc-ai.git
+git clone https://github.com/<dhanushkaran5>/intellidoc-ai.git
 
 cd intellidoc-ai
 ```
 
 ---
 
-## 2. Configure Environment Variables
-
-Copy the example configuration:
-
-```bash
-cp .env.example .env
-```
-
-Configure the required values:
-
-```env
-DATABASE_URL=
-DATABASE_USERNAME=
-DATABASE_PASSWORD=
-
-JWT_SECRET=
-
-AI_PROVIDER=
-LLM_API_KEY=
-
-EMBEDDING_MODEL=
-VECTOR_DB_URL=
-
-AI_SERVICE_URL=
-
-CHUNK_SIZE=
-CHUNK_OVERLAP=
-TOP_K=
-SIMILARITY_THRESHOLD=
-```
-
----
 
 # 3. Start Database
 
