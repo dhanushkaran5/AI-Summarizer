@@ -1,0 +1,54 @@
+services:
+  # 1. Frontend: High-Performance Static Site (Free on Render)
+  - type: web
+    name: intellidoc-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: "" # Will be configured to point to backend URL/api
+
+  # 2. Backend: Spring Boot 3 Java Service
+  - type: web
+    name: intellidoc-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: intellidoc-db
+          property: connectionString
+      - key: AI_SERVICE_URL
+        value: http://intellidoc-ai-service:8000
+      - key: JWT_SECRET
+        generateValue: true
+
+  # 3. AI Service: FastAPI Python Microservice
+  - type: web
+    name: intellidoc-ai-service
+    env: docker
+    dockerfilePath: ai-service/Dockerfile
+    dockerContext: ai-service
+    plan: free
+    envVars:
+      - key: AI_PROVIDER
+        value: mock
+      - key: AI_MODE
+        value: mock
+
+databases:
+  # Free Managed PostgreSQL Database
+  - name: intellidoc-db
+    databaseName: intellidoc
+    user: intellidoc
+    plan: free
