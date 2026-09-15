@@ -1,14 +1,14 @@
 # 🧠 IntelliDoc AI
 
-### AI-Powered Document Intelligence, Summarization & RAG Assistant
+### AI-Powered Document Intelligence, Multi-Depth Summarization & Verified RAG
 
 <p align="center">
   <img src="https://img.shields.io/badge/AI-Document%20Intelligence-purple?style=for-the-badge" alt="AI Document Intelligence"/>
-  <img src="https://img.shields.io/badge/RAG-Enabled-blue?style=for-the-badge" alt="RAG"/>
-  <img src="https://img.shields.io/badge/LLM-Powered-green?style=for-the-badge" alt="LLM"/>
-  <img src="https://img.shields.io/badge/Java-Spring%20Boot-orange?style=for-the-badge&logo=springboot" alt="Spring Boot"/>
-  <img src="https://img.shields.io/badge/React-TypeScript-blue?style=for-the-badge&logo=react" alt="React"/>
-  <img src="https://img.shields.io/badge/Python-FastAPI-yellow?style=for-the-badge&logo=python" alt="FastAPI"/>
+  <img src="https://img.shields.io/badge/RAG-Evidence%20Grounded-blue?style=for-the-badge" alt="RAG"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-3.4.2-brightgreen?style=for-the-badge&logo=springboot" alt="Spring Boot"/>
+  <img src="https://img.shields.io/badge/React%2019-TypeScript-blue?style=for-the-badge&logo=react" alt="React"/>
+  <img src="https://img.shields.io/badge/FastAPI-Python%203.11-teal?style=for-the-badge&logo=fastapi" alt="FastAPI"/>
+  <img src="https://img.shields.io/badge/ChromaDB-Vector%20Search-orange?style=for-the-badge" alt="ChromaDB"/>
 </p>
 
 <p align="center">
@@ -16,47 +16,71 @@
 </p>
 
 <p align="center">
-  IntelliDoc AI transforms complex documents into structured summaries,
-  evidence-grounded answers, insights, and interactive knowledge.
+  IntelliDoc AI transforms complex documents into structured multi-depth summaries,
+  searchable knowledge, evidence-grounded answers, comparisons, and interactive study material.
 </p>
 
 ---
 
-## 📌 Overview
+## ⚡ Core Capabilities
 
-**IntelliDoc AI** is a full-stack AI-powered document intelligence platform designed to help users understand and interact with large and complex documents.
+### 1. Document Ingestion & Chunking Pipeline
+- Multi-format parsing: **PDF**, **DOCX**, **PPTX**, and **TXT** files.
+- Token-aware semantic chunking with configurable chunk size and overlap (default: 1,000 chars with 200 overlap).
+- Automatic document metadata extraction (page counts, word counts, character counts, reading time).
 
-Unlike traditional document summarizers that simply generate a short summary, IntelliDoc AI combines **Large Language Models, Retrieval-Augmented Generation (RAG), semantic embeddings, vector search, and evidence verification** to provide reliable and context-aware document analysis.
+### 2. Multi-Depth Adaptive Summarization (Levels 0–5)
+- **Level 0 (Essence)**: Exactly one concise sentence capturing the core thesis.
+- **Level 1 (Executive)**: High-level executive overview with bulleted highlights.
+- **Level 2 (Structured)**: Mode-specific categorized breakdown.
+- **Level 3 (Sections)**: Section-by-section breakdown with takeaway summaries.
+- **Level 4 (Deep Technical)**: In-depth methodological, algorithmic, and architectural evaluation.
+- **Level 5 (Knowledge Base)**: Self-contained Q&A knowledge base.
+- **9 Audience Modes**: Executive, Student, Research, Technical, Beginner (ELI5), Meeting, Exam Prep, Legal & Policy, Custom.
 
-Users can upload documents, generate adaptive summaries, ask questions, retrieve supporting evidence, verify AI-generated claims, compare multiple documents, and create personalized study material.
+### 3. Verified RAG & Evidence Grounding
+- Retrieval-Augmented Generation using semantic vector search with ChromaDB and in-memory cosine fallback.
+- **Anti-Hallucination Verification Engine**: Classifies claims as `SUPPORTED`, `PARTIALLY_SUPPORTED`, or `UNSUPPORTED`.
+- Grounded citations linking directly to exact document chunk indices, section titles, and page numbers.
+
+### 4. Interactive Study Mode & Active Recall
+- AI-generated Multiple Choice Questions (MCQs) with instant evaluation, correct answer indicators, and explanations.
+- Interactive 3D flip flashcards for concept retention and active recall.
+
+### 5. Multi-Document Comparison Matrix
+- Side-by-side comparative table comparing objectives, methodology, results, similarities, and differences across documents in a collection.
+
+### 6. Contradiction & Knowledge Graph
+- Cross-section semantic consistency audit that automatically detects opposing numbers, conflicting requirements, and changed dates across pages.
+- Hierarchical document knowledge map visualizing concepts and relationships.
 
 ---
 
-## 🎯 Problem Statement
+## 🏗️ Architecture & Technology Stack
 
-Modern users often work with large volumes of information such as:
+```
+IntelliDoc AI Architecture:
+┌─────────────────────────┐
+│     React 19 + Vite     │  (Port 5173 / Port 3000 in Docker)
+│   TailwindCSS + Lucide  │
+└────────────┬────────────┘
+             │ REST + JWT
+┌────────────▼────────────┐
+│   Spring Boot 3.4.2     │  (Port 8080)
+│  Java 17 + Security     │
+│  PostgreSQL 16 + Redis  │
+└────────────┬────────────┘
+             │ Internal REST
+┌────────────▼────────────┐
+│    FastAPI AI Service   │  (Port 8000)
+│   Python 3.11 + Chroma  │
+│  Sentence-Transformers  │
+└─────────────────────────┘
+```
 
-* Research papers
-* Academic materials
-* Business reports
-* Technical documentation
-* Project reports
-* Policy documents
-* Resumes
-* Presentations
-
-Manually reading and analyzing these documents is time-consuming.
-
-Traditional AI summarization tools also have limitations:
-
-* Generic summaries
-* Limited context
-* Hallucinated information
-* Lack of source references
-* Poor handling of multiple documents
-* Difficulty extracting actionable insights
-
-**IntelliDoc AI addresses these challenges by turning static documents into interactive, searchable, and evidence-grounded knowledge sources.**
+- **Frontend**: React 19, TypeScript, Vite 8, Tailwind CSS, Lucide Icons.
+- **Backend API**: Java 17, Spring Boot 3.4.2, Spring Security with stateless JWT, Spring Data JPA, H2 (dev) / PostgreSQL 16 (prod), Redis 7.
+- **AI Intelligence Service**: Python 3.11, FastAPI, ChromaDB, Sentence-Transformers, PyPDF2, python-docx, python-pptx, LiteLLM / Gemini.
 
 ---
 
@@ -673,6 +697,7 @@ Or configure PostgreSQL locally.
 
 # 4. Start AI Service
 
+<<<<<<< HEAD
 ```bash
 cd ai-service
 
@@ -694,6 +719,28 @@ source venv/bin/activate
 Install dependencies:
 
 ```bash
+=======
+### Option A: Docker Compose (Full Stack)
+
+```bash
+docker compose up --build
+```
+- Frontend: `http://localhost:3000`
+- Backend API: `http://localhost:8080`
+- AI Service Docs: `http://localhost:8000/docs`
+
+### Option B: Local Development
+
+#### 1. AI Intelligence Service
+```bash
+cd ai-service
+python -m venv .venv
+# On Windows:
+.venv\Scripts\activate
+# On Unix:
+source .venv/bin/activate
+
+>>>>>>> 13b45d9 (feat: upgrade to production-grade IntelliDoc AI document intelligence platform)
 pip install -r requirements.txt
 ```
 
@@ -703,10 +750,14 @@ Run the service:
 uvicorn app.main:app --reload --port 8000
 ```
 
+<<<<<<< HEAD
 ---
 
 # 5. Start Spring Boot Backend
 
+=======
+#### 2. Spring Boot Backend
+>>>>>>> 13b45d9 (feat: upgrade to production-grade IntelliDoc AI document intelligence platform)
 ```bash
 cd backend
 ```
@@ -717,6 +768,7 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
+<<<<<<< HEAD
 ### Windows
 
 ```bash
@@ -1141,3 +1193,77 @@ AI Engineer • Full-Stack Developer • Java • Spring Boot • React • LLM 
 ⭐ Star the repository if you find the project interesting.
 
 </p>
+=======
+#### 3. Frontend Application
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Visit **`http://localhost:5173`** to access IntelliDoc AI.
+
+---
+
+## 🔌 API Endpoints Summary
+
+### Authentication (`/api/auth`)
+- `POST /api/auth/register`: Create a new user account
+- `POST /api/auth/login`: Authenticate and receive JWT token
+- `POST /api/auth/refresh`: Refresh expired JWT token
+- `POST /api/auth/logout`: Revoke session
+- `GET /api/auth/me`: Retrieve current authenticated user profile
+
+### Documents (`/api/documents`)
+- `POST /api/documents/upload`: Upload PDF, DOCX, PPTX, or TXT
+- `GET /api/documents`: List user documents
+- `GET /api/documents/{id}`: Get document metadata
+- `GET /api/documents/{id}/chunks`: Retrieve chunked text with page mappings
+- `GET /api/documents/{id}/analytics`: Compute reading time, word counts, section counts
+- `POST /api/documents/{id}/verify`: Verify claims against document ground truth
+- `DELETE /api/documents/{id}`: Delete document and associated chunks
+
+### Intelligence & RAG
+- `POST /api/summary/multi-level/{docId}`: Generate multi-depth summaries across 9 modes
+- `POST /api/chat/ask/{docId}`: Ask grounded questions with citations
+- `POST /api/study/generate/{docId}`: Generate MCQs, flashcards, and Q&A
+- `GET /api/documents/{id}/contradictions`: Detect internal document contradictions
+- `GET /api/documents/{id}/knowledge-map`: Build concept hierarchy
+
+### Health & Monitoring
+- `GET /health` / `GET /ready`: Root liveness and readiness probes
+- `GET /api/health` / `GET /api/ready`: API service status
+
+---
+
+## 🧪 Testing & Quality Assurance
+
+All services have comprehensive unit and integration test suites:
+
+- **Backend (Spring Boot)**:
+  ```bash
+  cd backend
+  ./mvnw test
+  ```
+  *(6/6 tests passing: Auth, Summary, Verification, Context load)*
+
+- **AI Service (FastAPI / Python)**:
+  ```bash
+  cd ai-service
+  python -m pytest tests -v
+  ```
+  *(10/10 tests passing: Ingestion, Chunking, Search, Verification, Contradictions)*
+
+- **Frontend (TypeScript / Vite)**:
+  ```bash
+  cd frontend
+  npm run build
+  ```
+  *(0 errors, clean production bundle)*
+
+---
+
+## 📄 License
+
+MIT License. See [LICENSE](LICENSE) for details.
+>>>>>>> 13b45d9 (feat: upgrade to production-grade IntelliDoc AI document intelligence platform)

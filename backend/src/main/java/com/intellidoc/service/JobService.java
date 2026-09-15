@@ -33,6 +33,9 @@ public class JobService {
     @Autowired
     private AIServiceClient aiServiceClient;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ProcessingJob createJob(Long documentId, Long userId) {
@@ -71,14 +74,17 @@ public class JobService {
     }
 
     @Async
-    public CompletableFuture<Void> processDocumentAsync(ProcessingJob job, MultipartFile file, Document doc) {
+    public CompletableFuture<Void> processDocumentAsync(ProcessingJob job, Document doc) {
         try {
             // Stage 1: Extraction (35%)
             updateJobStage(job, "EXTRACTING", 35, "Extracting text and structure from document");
             doc.setStatus("EXTRACTING");
             documentRepository.save(doc);
 
-            Map<String, Object> aiResult = aiServiceClient.extractDocument(file);
+            java.nio.file.Path filePath = fileStorageService.getFilePath(doc.getFilename());
+            byte[] fileBytes = java.nio.file.Files.readAllBytes(filePath);
+
+            Map<String, Object> aiResult = aiServiceClient.extractDocumentFromBytes(fileBytes, doc.getOriginalName());
 
             doc.setPageCount((Integer) aiResult.getOrDefault("page_count", 1));
             doc.setWordCount((Integer) aiResult.getOrDefault("word_count", 0));

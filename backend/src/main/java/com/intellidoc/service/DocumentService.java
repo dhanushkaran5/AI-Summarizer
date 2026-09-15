@@ -6,15 +6,11 @@ import com.intellidoc.dto.*;
 import com.intellidoc.entity.*;
 import com.intellidoc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -39,30 +35,42 @@ public class DocumentService {
     @Autowired
     private JobService jobService;
 
-    @Value("${file.upload-dir:./uploads}")
-    private String uploadDir;
+    @Autowired
+    private FileStorageService fileStorageService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private static final Set<String> ALLOWED_EXTENSIONS = Set.of("pdf", "docx", "pptx", "txt");
+    private static final long MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
+
     public Map<String, Object> uploadAndStartProcessing(MultipartFile file, Long userId) throws IOException {
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("Cannot upload an empty document.");
+        }
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new IllegalArgumentException("File size exceeds 50MB maximum limit.");
         }
 
-        String originalFilename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "document.txt";
-        String ext = originalFilename.contains(".") ? originalFilename.substring(originalFilename.lastIndexOf(".")) : ".txt";
-        String storedFilename = UUID.randomUUID().toString() + ext;
-        Path targetPath = uploadPath.resolve(storedFilename);
+        String rawFilename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "document.txt";
+        // Sanitize filename to prevent path traversal
+        String originalFilename = rawFilename.replaceAll("[\\\\/]", "").trim();
+        if (originalFilename.isBlank()) {
+            originalFilename = "document.txt";
+        }
 
-        Files.copy(file.getInputStream(), targetPath);
+        String ext = originalFilename.contains(".") ? originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase() : "txt";
+        if (!ALLOWED_EXTENSIONS.contains(ext)) {
+            throw new IllegalArgumentException("Unsupported file format: ." + ext + ". Supported formats: PDF, DOCX, PPTX, TXT");
+        }
+        
+        String storedFilename = fileStorageService.storeFile(file);
 
         // Initial Document DB Record
         Document doc = Document.builder()
                 .userId(userId)
                 .filename(storedFilename)
                 .originalName(originalFilename)
-                .fileType(ext.replace(".", "").toLowerCase())
+                .fileType(ext)
                 .fileSize(file.getSize())
                 .status("UPLOADING")
                 .uploadedAt(LocalDateTime.now())
@@ -83,8 +91,8 @@ public class DocumentService {
         // Create async tracking job
         ProcessingJob job = jobService.createJob(doc.getId(), userId);
 
-        // Launch async pipeline in background
-        jobService.processDocumentAsync(job, file, doc);
+        // Launch async pipeline in background safely using stored disk copy
+        jobService.processDocumentAsync(job, doc);
 
         Map<String, Object> response = new HashMap<>();
         response.put("document", doc);
@@ -109,9 +117,36 @@ public class DocumentService {
         documentRepository.delete(doc);
 
         try {
-            Path fileToDelete = Paths.get(uploadDir).resolve(doc.getFilename());
-            Files.deleteIfExists(fileToDelete);
+            fileStorageService.deleteFile(doc.getFilename());
         } catch (Exception ignored) {}
+    }
+
+    public DocumentAnalyticsDto getDocumentAnalytics(Long id, Long userId) {
+        Document doc = getDocumentById(id, userId);
+        List<DocumentChunk> chunks = documentChunkRepository.findByDocumentIdOrderByChunkIndexAsc(id);
+
+        Set<String> sections = new HashSet<>();
+        for (DocumentChunk c : chunks) {
+            if (c.getSection() != null && !c.getSection().isBlank()) {
+                sections.add(c.getSection());
+            }
+        }
+
+        int readingTime = doc.getReadingTimeMinutes() != null
+                ? (int) Math.ceil(doc.getReadingTimeMinutes())
+                : (int) Math.ceil((doc.getWordCount() != null ? doc.getWordCount() : 0) / 200.0);
+
+        return DocumentAnalyticsDto.builder()
+                .documentId(doc.getId())
+                .filename(doc.getOriginalName())
+                .fileType(doc.getFileType())
+                .pageCount(doc.getPageCount() != null ? doc.getPageCount() : 1)
+                .wordCount(doc.getWordCount() != null ? doc.getWordCount().longValue() : 0L)
+                .characterCount(doc.getCharCount() != null ? doc.getCharCount().longValue() : 0L)
+                .estimatedReadingTimeMinutes(Math.max(1, readingTime))
+                .sectionCount(Math.max(1, sections.size()))
+                .chunkCount(chunks.size())
+                .build();
     }
 
     public DocumentIntelligenceResponse getIntelligence(Long id, Long userId) {

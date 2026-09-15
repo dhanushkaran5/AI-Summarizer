@@ -4,9 +4,9 @@ import time
 from app.config import settings
 
 app = FastAPI(
-    title="ANTI-SUMMARY Document Intelligence API",
+    title="IntelliDoc AI Intelligence Service",
     version=settings.APP_VERSION,
-    description="Adaptive, Evidence-Grounded AI Document Intelligence Platform",
+    description="Turn complex documents into intelligent, actionable knowledge.",
 )
 
 # CORS
@@ -26,7 +26,8 @@ async def health_check():
     """Liveness probe."""
     return {
         "status": "healthy",
-        "service": settings.APP_NAME,
+        "service": "IntelliDoc AI Intelligence Service",
+        "tagline": "Upload. Understand. Ask. Learn.",
         "version": settings.APP_VERSION,
         "ai_provider": settings.AI_PROVIDER,
         "ai_mode": settings.AI_MODE,
@@ -43,7 +44,7 @@ async def readiness_check():
         "status": "ready",
         "provider": provider.get_provider_name(),
         "is_mock": provider.is_mock(),
-        "vector_db": "chroma_initialized",
+        "vector_db": "initialized",
     }
 
 
@@ -59,12 +60,13 @@ async def metrics_endpoint():
 
 
 # Import and include all routers
-from app.routers import extract, summarize, chat, study, search, intelligence
+from app.routers import extract, summarize, summarize_v2, chat, study, search, intelligence
 
+app.include_router(summarize_v2.router, prefix="/api", tags=["Multi-Depth Summarization"])
+app.include_router(summarize.router, prefix="/api", tags=["Standard Summarization"])
 app.include_router(extract.router, prefix="/api", tags=["Document Extraction"])
-app.include_router(summarize.router, prefix="/api", tags=["Summarization"])
-app.include_router(intelligence.router, prefix="/api", tags=["ANTI-SUMMARY Intelligence"])
-app.include_router(chat.router, prefix="/api", tags=["Chat & RAG"])
+app.include_router(intelligence.router, prefix="/api", tags=["Document Intelligence"])
+app.include_router(chat.router, prefix="/api", tags=["Chat & Verified RAG"])
 app.include_router(study.router, prefix="/api", tags=["Study Mode"])
 app.include_router(search.router, prefix="/api", tags=["Vector Search"])
 
@@ -72,3 +74,4 @@ app.include_router(search.router, prefix="/api", tags=["Vector Search"])
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app.main:app", host=settings.HOST, port=settings.PORT, reload=settings.DEBUG)
+

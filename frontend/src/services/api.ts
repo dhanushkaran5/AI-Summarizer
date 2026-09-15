@@ -3,12 +3,13 @@ import type {
   AuthRequest, AuthResponse, Document,
   ChatRequest, ChatResponse, DashboardStats, Collection,
   StudyMaterialRequest, StudyMaterialResponse,
-  DocumentIntelligence, Conversation, Message,
+  DocumentIntelligence, DocumentAnalytics, Conversation, Message,
   MultiLevelSummary, SummaryMode,
   ContradictionResponse, KnowledgeMapResponse, ProcessingJob,
+  VerifyResponse, User,
 } from '../types';
 
-const API_BASE = '/api';
+const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -28,7 +29,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 && !window.location.pathname.includes('/login') && !window.location.pathname.includes('/register')) {
       localStorage.removeItem('intellidoc_token');
       localStorage.removeItem('intellidoc_user');
       window.location.href = '/login';
@@ -41,6 +42,9 @@ api.interceptors.response.use(
 export const authApi = {
   register: (data: AuthRequest) => api.post<AuthResponse>('/auth/register', data),
   login: (data: AuthRequest) => api.post<AuthResponse>('/auth/login', data),
+  refresh: (token: string) => api.post<AuthResponse>('/auth/refresh', { token }),
+  logout: () => api.post<{ message: string; success: boolean }>('/auth/logout'),
+  getMe: () => api.get<User>('/auth/me'),
 };
 
 /* === Documents === */
@@ -61,7 +65,10 @@ export const documentApi = {
   getById: (id: number) => api.get<Document>(`/documents/${id}`),
   delete: (id: number) => api.delete(`/documents/${id}`),
   getStatus: (id: number) => api.get<Document>(`/documents/${id}/status`),
+  getAnalytics: (id: number) => api.get<DocumentAnalytics>(`/documents/${id}/analytics`),
   getIntelligence: (id: number) => api.get<DocumentIntelligence>(`/documents/${id}/intelligence`),
+  verify: (id: number, data: { text?: string; claims?: string[] }) =>
+    api.post<VerifyResponse>(`/documents/${id}/verify`, data),
   getContradictions: (id: number) => api.get<ContradictionResponse>(`/documents/${id}/contradictions`),
   getKnowledgeMap: (id: number) => api.get<KnowledgeMapResponse>(`/documents/${id}/knowledge-map`),
 };
@@ -75,6 +82,8 @@ export const jobApi = {
 export const summaryApi = {
   generateMultiLevel: (docId: number, data: { mode: SummaryMode; targetLevel?: number }) =>
     api.post<MultiLevelSummary>(`/documents/${docId}/summarize/multi-level`, data),
+  generateStandard: (docId: number, data: { length?: string; level?: string }) =>
+    api.post<any>(`/documents/${docId}/summarize`, data),
   getByDocument: (docId: number) => api.get<any[]>(`/documents/${docId}/summaries`),
 };
 
@@ -118,4 +127,72 @@ export const dashboardApi = {
   getStats: () => api.get<DashboardStats>('/dashboard/stats'),
 };
 
+/* === Developer & API Keys === */
+export const developerApi = {
+  createKey: (data: { name: string; rateLimit?: number }) =>
+    api.post<import('../types').ApiKeyCreatedResponse>('/developer/keys', data),
+  getKeys: () =>
+    api.get<import('../types').ApiKeyItem[]>('/developer/keys'),
+  revokeKey: (id: number) =>
+    api.delete(`/developer/keys/${id}`),
+  getUsage: (id: number) =>
+    api.get<import('../types').ApiUsageLogItem[]>(`/developer/keys/${id}/usage`),
+};
+
+/* === Workspaces & Collaboration === */
+export const workspaceApi = {
+  create: (data: { name: string; description?: string }) =>
+    api.post<import('../types').WorkspaceItem>('/workspaces', data),
+  getAll: () =>
+    api.get<import('../types').WorkspaceItem[]>('/workspaces'),
+  getById: (id: number) =>
+    api.get<import('../types').WorkspaceItem>(`/workspaces/${id}`),
+  addMember: (workspaceId: number, data: { email: string; role?: string }) =>
+    api.post<import('../types').WorkspaceMemberItem>(`/workspaces/${workspaceId}/members`, data),
+  removeMember: (workspaceId: number, memberId: number) =>
+    api.delete(`/workspaces/${workspaceId}/members/${memberId}`),
+  getSummaries: (workspaceId: number) =>
+    api.get<any[]>(`/workspaces/${workspaceId}/summaries`),
+};
+
+/* === Comments & Feedback === */
+export const commentApi = {
+  addComment: (summaryId: number, data: { text: string; sectionId?: string }) =>
+    api.post<import('../types').CommentItem>(`/summaries/${summaryId}/comments`, data),
+  getComments: (summaryId: number) =>
+    api.get<import('../types').CommentItem[]>(`/summaries/${summaryId}/comments`),
+  addReply: (commentId: number, data: { text: string }) =>
+    api.post<import('../types').CommentReplyItem>(`/summaries/comments/${commentId}/replies`, data),
+  toggleResolve: (commentId: number) =>
+    api.patch<import('../types').CommentItem>(`/summaries/comments/${commentId}/resolve`),
+};
+
+/* === Summaries V2 === */
+export const summaryV2Api = {
+  generate: (data: {
+    title?: string;
+    text?: string;
+    documentId?: number;
+    mode?: string;
+    length?: string;
+    persona?: string;
+    language?: string;
+    workspaceId?: number;
+  }, apiKey?: string) =>
+    api.post<import('../types').SummaryV2Item>('/v1/summaries', data, {
+      headers: apiKey ? { 'X-API-Key': apiKey } : undefined,
+    }),
+  getUserSummaries: () =>
+    api.get<import('../types').SummaryV2Item[]>('/v1/summaries'),
+  getById: (id: number) =>
+    api.get<import('../types').SummaryV2Item>(`/v1/summaries/${id}`),
+  getVersions: (id: number) =>
+    api.get<any[]>(`/v1/summaries/${id}/versions`),
+  restoreVersion: (id: number, versionNumber: number, data?: any) =>
+    api.post<import('../types').SummaryV2Item>(`/v1/summaries/${id}/versions/${versionNumber}/restore`, data),
+  getExportUrl: (id: number, format: 'pdf' | 'docx' | 'markdown') =>
+    `${API_BASE}/v1/summaries/${id}/export?format=${format}`,
+};
+
 export default api;
+

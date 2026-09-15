@@ -1,0 +1,43 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/intellidoc}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:intellidoc}
+    password: ${SPRING_DATASOURCE_PASSWORD:intellidoc_secure_pass}
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: ${PORT:8080}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION_MS:86400000}
+
+ai:
+  service:
+    url: ${AI_SERVICE_URL:http://ai-service:8000}
+
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:/app/uploads}

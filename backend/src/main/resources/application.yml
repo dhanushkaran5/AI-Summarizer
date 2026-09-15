@@ -3,28 +3,28 @@ spring:
     name: IntelliDoc AI Backend
 
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
-  # H2 Database (Development)
+  # H2 Database (Development Default)
   datasource:
-    url: jdbc:h2:file:./data/intellidoc;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:file:./data/intellidoc;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.h2.Driver}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
 
   h2:
     console:
-      enabled: true
+      enabled: ${H2_CONSOLE_ENABLED:true}
       path: /h2-console
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
     show-sql: false
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
 
   # File upload
   servlet:
@@ -40,18 +40,18 @@ spring:
 
 # Server
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 # JWT
 jwt:
-  secret: intellidoc-ai-secret-key-change-this-in-production-minimum-256-bits-for-security
-  expiration: 86400000
+  secret: ${JWT_SECRET:intellidoc-ai-secret-key-change-this-in-production-minimum-256-bits-for-security}
+  expiration: ${JWT_EXPIRATION_MS:86400000}
 
 # AI Service
 ai:
   service:
-    url: http://localhost:8000
+    url: ${AI_SERVICE_URL:http://localhost:8000}
 
 # File storage
 file:
-  upload-dir: ./uploads
+  upload-dir: ${FILE_UPLOAD_DIR:./uploads}

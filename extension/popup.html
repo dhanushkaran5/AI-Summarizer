@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summarize AI</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="extension-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-icon">✨</div>
+        <div class="brand-text">
+          <span class="brand-title">Summarize <span class="gradient-text">AI</span></span>
+          <span class="brand-subtitle">Web Companion</span>
+        </div>
+      </div>
+      <button id="settingsToggleBtn" class="icon-btn" title="Settings">⚙️</button>
+    </header>
+
+    <!-- Settings Drawer -->
+    <div id="settingsPanel" class="settings-panel hidden">
+      <label class="setting-label">Backend API URL</label>
+      <input type="text" id="apiUrlInput" class="setting-input" value="http://localhost:8080/api/v1/summaries" />
+
+      <label class="setting-label">API Key (Optional)</label>
+      <input type="password" id="apiKeyInput" class="setting-input" placeholder="sk-..." />
+
+      <button id="saveSettingsBtn" class="btn-secondary btn-sm">Save Preferences</button>
+    </div>
+
+    <!-- Configuration Options -->
+    <div class="controls-card">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="modeSelect">Mode</label>
+          <select id="modeSelect" class="select-field">
+            <option value="HYBRID" selected>Hybrid</option>
+            <option value="EXTRACTIVE">Extractive</option>
+            <option value="ABSTRACTIVE">Abstractive</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="lengthSelect">Length</label>
+          <select id="lengthSelect" class="select-field">
+            <option value="BRIEF">Brief</option>
+            <option value="STANDARD" selected>Standard</option>
+            <option value="DETAILED">Detailed</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="personaSelect">Persona</label>
+          <select id="personaSelect" class="select-field">
+            <option value="Executive" selected>Executive</option>
+            <option value="Academic">Academic</option>
+            <option value="Technical">Technical</option>
+            <option value="Casual">Casual</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button id="summarizeSelectionBtn" class="btn-secondary">
+          📝 Selected Text
+        </button>
+        <button id="summarizePageBtn" class="btn-primary">
+          ⚡ Summarize Page
+        </button>
+      </div>
+    </div>
+
+    <!-- Status Indicator -->
+    <div id="statusBox" class="status-box hidden">
+      <div class="spinner"></div>
+      <span id="statusText">Analyzing page content...</span>
+    </div>
+
+    <!-- Result Output -->
+    <div id="resultBox" class="result-box hidden">
+      <div class="result-header">
+        <div class="badge-group">
+          <span id="resConfidenceBadge" class="badge badge-success">Confidence: 94%</span>
+          <span id="resPersonaBadge" class="badge badge-subtle">Executive</span>
+        </div>
+        <div class="button-group">
+          <button id="copySummaryBtn" class="btn-icon" title="Copy to clipboard">📋</button>
+          <a id="openAppBtn" href="http://localhost:5173" target="_blank" class="btn-icon" title="Open in Summarize AI Studio">↗</a>
+        </div>
+      </div>
+
+      <h3 id="resTitle" class="result-title">Summary Synthesis</h3>
+      <p id="resSummaryText" class="result-body"></p>
+
+      <div id="insightsBox" class="insights-container hidden">
+        <h4 class="insights-heading">Key Insights</h4>
+        <ul id="insightsList" class="insights-list"></ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Summarize AI • Local Deterministic & Cloud Hybrid Engine</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

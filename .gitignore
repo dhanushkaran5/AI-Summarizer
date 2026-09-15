@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+dist/
+target/
+.venv/
+env/
+venv/
+
+# Environment and secrets
+.env
+*.env.local
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & uploads
+*.mv.db
+*.trace.db
+/backend/data/
+/backend/uploads/
+uploads/
+
+# IDE & OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

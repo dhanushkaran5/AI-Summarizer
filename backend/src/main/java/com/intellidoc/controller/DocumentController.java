@@ -1,12 +1,15 @@
 package com.intellidoc.controller;
 
 import com.intellidoc.dto.ContradictionDto;
+import com.intellidoc.dto.DocumentAnalyticsDto;
 import com.intellidoc.dto.DocumentIntelligenceResponse;
 import com.intellidoc.dto.KnowledgeMapDto;
+import com.intellidoc.dto.VerificationDto;
 import com.intellidoc.entity.Document;
 import com.intellidoc.entity.User;
 import com.intellidoc.service.AuthService;
 import com.intellidoc.service.DocumentService;
+import com.intellidoc.service.VerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,6 +27,9 @@ public class DocumentController {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private VerificationService verificationService;
 
     @Autowired
     private AuthService authService;
@@ -67,6 +73,21 @@ public class DocumentController {
                                                        @AuthenticationPrincipal UserDetails userDetails) {
         Long userId = getUserId(userDetails);
         return ResponseEntity.ok(documentService.getDocumentById(id, userId));
+    }
+
+    @GetMapping("/{id}/analytics")
+    public ResponseEntity<DocumentAnalyticsDto> getDocumentAnalytics(@PathVariable Long id,
+                                                                      @AuthenticationPrincipal UserDetails userDetails) {
+        Long userId = getUserId(userDetails);
+        return ResponseEntity.ok(documentService.getDocumentAnalytics(id, userId));
+    }
+
+    @PostMapping("/{id}/verify")
+    public ResponseEntity<VerificationDto.VerifyResponse> verifyClaims(@PathVariable Long id,
+                                                                       @RequestBody VerificationDto.VerifyRequest request,
+                                                                       @AuthenticationPrincipal UserDetails userDetails) {
+        Long userId = getUserId(userDetails);
+        return ResponseEntity.ok(verificationService.verifyClaims(id, userId, request));
     }
 
     @GetMapping("/{id}/intelligence")

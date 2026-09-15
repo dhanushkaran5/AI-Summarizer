@@ -1,4 +1,4 @@
-/* === ANTI-SUMMARY Entity & Data Types === */
+/* === IntelliDoc AI Entity & Data Types === */
 
 export interface User {
   id: number;
@@ -11,6 +11,7 @@ export interface AuthRequest {
   email: string;
   password?: string;
   name?: string;
+  confirmPassword?: string;
 }
 
 export interface AuthResponse {
@@ -38,9 +39,12 @@ export interface Document {
 
 export type DocumentStatus =
   | 'UPLOADING'
+  | 'VALIDATING'
   | 'EXTRACTING'
   | 'CHUNKING'
   | 'EMBEDDING'
+  | 'INDEXING'
+  | 'ANALYZING'
   | 'SUMMARIZING'
   | 'COMPLETED'
   | 'FAILED';
@@ -55,6 +59,18 @@ export interface DocumentChunk {
     charEnd?: number;
     wordCount?: number;
   };
+}
+
+export interface DocumentAnalytics {
+  documentId: number;
+  filename: string;
+  fileType: string;
+  pageCount: number;
+  wordCount: number;
+  characterCount: number;
+  estimatedReadingTimeMinutes: number;
+  sectionCount: number;
+  chunkCount: number;
 }
 
 export interface MultiLevelSummary {
@@ -143,8 +159,27 @@ export interface VerificationResult {
   status: 'supported' | 'partially_supported' | 'unsupported';
   claimStatus?: ClaimStatus;
   confidence: number;
-  evidenceCount: number;
+  evidenceCount?: number;
   details: string;
+}
+
+export interface ClaimVerification {
+  claim: string;
+  status: 'SUPPORTED' | 'PARTIALLY_SUPPORTED' | 'UNSUPPORTED';
+  confidence: number;
+  evidenceQuote: string;
+  sources?: Source[];
+}
+
+export interface VerifyResponse {
+  documentId: number;
+  status: 'supported' | 'partially_supported' | 'unsupported';
+  claimStatus: ClaimStatus;
+  confidence: number;
+  claims: ClaimVerification[];
+  overallAssessment: string;
+  sources: Source[];
+  mock: boolean;
 }
 
 export interface ChatRequest {
@@ -159,19 +194,15 @@ export interface ChatResponse {
   verification?: VerificationResult;
   conversationId: number;
   messageId: number;
-  mock: boolean;
+  mock?: boolean;
 }
 
-export interface StudyMaterialRequest {
-  difficulty?: string;
-  types?: string[];
-  count?: number;
-}
-
-export interface StudyMaterialResponse {
+export interface Conversation {
+  id: number;
+  title: string;
   documentId: number;
-  questions: StudyQuestion[];
-  mock: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Message {
@@ -179,43 +210,59 @@ export interface Message {
   conversationId: number;
   role: 'user' | 'assistant';
   content: string;
-  sources: Source[];
-  verification?: VerificationResult;
-  claimStatus?: ClaimStatus;
-  mock: boolean;
   createdAt: string;
+  sources?: Source[];
+  verification?: VerificationResult;
 }
 
-export interface Conversation {
-  id: number;
-  userId: number;
-  documentId?: number;
-  collectionId?: number;
-  title: string;
-  createdAt: string;
+export interface StudyMaterialRequest {
+  difficulty?: 'easy' | 'medium' | 'hard' | string;
+  types?: Array<'mcq' | 'flashcard' | 'qa' | 'short_answer' | string>;
+  count?: number;
+}
+
+export interface StudyQuestion {
+  type: 'mcq' | 'qa' | 'flashcard' | 'short_answer';
+  question?: string;
+  front?: string;
+  back?: string;
+  options?: string[];
+  correctAnswer?: string;
+  correct?: string;
+  explanation?: string;
+  difficulty?: 'easy' | 'medium' | 'hard' | string;
+  sourceReference?: string;
+}
+
+export interface FlashcardItem {
+  front: string;
+  back: string;
+  sourceReference?: string;
+}
+
+export interface StudyMaterialResponse {
+  questions: StudyQuestion[];
+  flashcards: FlashcardItem[];
+  mock: boolean;
 }
 
 export interface Collection {
   id: number;
-  userId: number;
   name: string;
   description: string;
   documentCount: number;
   createdAt: string;
 }
 
-export interface StudyQuestion {
-  type: string;
-  question?: string;
-  options?: string[];
-  correct?: string;
-  explanation?: string;
-  answer?: string;
-  front?: string;
-  back?: string;
-  term?: string;
-  definition?: string;
-  concept?: string;
+export interface DashboardStats {
+  totalDocuments: number;
+  processingCount?: number;
+  completedCount?: number;
+  processedDocuments?: number;
+  summariesGenerated?: number;
+  questionsAsked?: number;
+  totalCollections?: number;
+  totalQueries?: number;
 }
 
 export interface DocumentIntelligence {
@@ -229,18 +276,95 @@ export interface DocumentIntelligence {
   keyConcepts: string[];
 }
 
-export interface DashboardStats {
-  totalDocuments: number;
-  processedDocuments: number;
-  summariesGenerated: number;
-  questionsAsked: number;
+/* === Developer & API Keys === */
+export interface ApiKeyItem {
+  id: number;
+  name: string;
+  keyPrefix: string;
+  rateLimit: number;
+  totalRequests: number;
+  status: 'ACTIVE' | 'REVOKED';
+  lastUsedAt?: string;
+  createdAt: string;
 }
 
-export interface UserPreference {
-  defaultSummaryMode: SummaryMode;
-  defaultDepthLevel: number;
-  highContrastMode: boolean;
-  textScalePercent: number;
-  reducedMotion: boolean;
-  preferredAiProvider: string;
+export interface ApiKeyCreatedResponse {
+  id: number;
+  name: string;
+  apiKey: string;
+  keyPrefix: string;
+  rateLimit: number;
+  createdAt: string;
 }
+
+export interface ApiUsageLogItem {
+  id: number;
+  endpoint: string;
+  method: string;
+  statusCode: number;
+  responseMs: number;
+  timestamp: string;
+}
+
+/* === Workspaces & Collaboration === */
+export interface WorkspaceItem {
+  id: number;
+  name: string;
+  description: string;
+  ownerId: number;
+  role: string;
+  memberCount: number;
+  createdAt: string;
+}
+
+export interface WorkspaceMemberItem {
+  id: number;
+  userId: number;
+  email: string;
+  name: string;
+  role: 'OWNER' | 'EDITOR' | 'VIEWER';
+  joinedAt: string;
+}
+
+export interface CommentItem {
+  id: number;
+  summaryId: number;
+  userId: number;
+  userName: string;
+  userEmail: string;
+  text: string;
+  sectionId?: string;
+  resolved: boolean;
+  createdAt: string;
+  replies: CommentReplyItem[];
+}
+
+export interface CommentReplyItem {
+  id: number;
+  userId: number;
+  userName: string;
+  text: string;
+  createdAt: string;
+}
+
+/* === Summaries V2 === */
+export interface SummaryV2Item {
+  id: number;
+  title: string;
+  summaryText: string;
+  mode: string;
+  length: string;
+  persona: string;
+  language: string;
+  confidenceScore: number;
+  compressionRatio?: number;
+  readabilityScore?: number;
+  wordCount?: number;
+  readingTimeMinutes?: number;
+  sections?: Array<{ id: string; title: string; content: string }>;
+  insights?: Array<{ id: string; title: string; insight: string; whyThisMatters: string; importance: string }>;
+  sentiment?: { tone: string; score: number; distribution?: Record<string, number> };
+  traceability?: Array<{ segmentId: string; segmentText: string; sourceSentence: string; similarity: number }>;
+  generatedAt: string;
+}
+

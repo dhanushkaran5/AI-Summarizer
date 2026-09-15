@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Settings, Eye, Sliders, ShieldCheck } from 'lucide-react';
 
 export default function SettingsPage() {
@@ -15,21 +14,18 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface-50 p-6 md:p-8 text-surface-900">
-      <div className="max-w-3xl mx-auto">
-        <Link to="/dashboard" className="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-primary-600 mb-6 font-medium">
-          ← Back to Dashboard
-        </Link>
-
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-surface-900 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
-              <Settings className="w-5 h-5 text-white" />
-            </div>
-            Settings & Accessibility
-          </h1>
-          <p className="text-surface-500 mt-1">Configure AI engine, visual accessibility, and platform preferences.</p>
-        </div>
+    <div className="max-w-3xl mx-auto space-y-6 animate-fade-in">
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-surface-900 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-xs">
+            <Settings className="w-5 h-5 text-white" />
+          </div>
+          Settings & Accessibility
+        </h1>
+        <p className="text-surface-500 mt-1 text-sm">
+          Configure AI intelligence engine, visual accessibility, and platform preferences.
+        </p>
+      </div>
 
         <div className="space-y-6">
           {/* AI Provider Config */}
@@ -118,6 +114,5 @@ export default function SettingsPage() {
           )}
         </div>
       </div>
-    </div>
   );
 }

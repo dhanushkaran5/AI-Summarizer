@@ -26,10 +26,15 @@ class OpenAIProvider(BaseLLMProvider):
     async def generate(self, prompt: str, system_prompt: Optional[str] = None,
                        max_tokens: int = 2000, temperature: float = 0.3) -> str:
         """Generate text completion from OpenAI."""
-        if not self.api_key or self.api_key.startswith("your_"):
-            logger.warning("OpenAI API key missing or placeholder. Falling back to deterministic mock.")
-            from app.providers.mock_provider import MockProvider
-            return await MockProvider().generate(prompt, system_prompt, max_tokens, temperature)
+        if not self.api_key or self.api_key.startswith("your_") or self.api_key == "mock":
+            if settings.AI_MODE == "mock" or settings.AI_PROVIDER == "mock":
+                logger.info("Operating in explicit mock mode. Using deterministic MockProvider.")
+                from app.providers.mock_provider import MockProvider
+                return await MockProvider().generate(prompt, system_prompt, max_tokens, temperature)
+            raise RuntimeError(
+                "OpenAI provider is not configured. Please set a valid OPENAI_API_KEY in your environment "
+                "or set AI_MODE=mock for local development."
+            )
 
         messages = []
         if system_prompt:
@@ -54,9 +59,11 @@ class OpenAIProvider(BaseLLMProvider):
                 data = response.json()
                 return data["choices"][0]["message"]["content"].strip()
         except Exception as e:
-            logger.error(f"OpenAI generation error: {e}. Falling back to mock generator.")
-            from app.providers.mock_provider import MockProvider
-            return await MockProvider().generate(prompt, system_prompt, max_tokens, temperature)
+            logger.error(f"OpenAI generation error: {e}")
+            if settings.AI_MODE == "mock":
+                from app.providers.mock_provider import MockProvider
+                return await MockProvider().generate(prompt, system_prompt, max_tokens, temperature)
+            raise RuntimeError(f"OpenAI API request failed: {e}")
 
     async def generate_structured(self, prompt: str, system_prompt: Optional[str] = None,
                                    max_tokens: int = 2000, temperature: float = 0.3) -> dict:

@@ -10,6 +10,9 @@ import java.util.Optional;
 @Repository
 public interface SummaryRepository extends JpaRepository<Summary, Long> {
     List<Summary> findByDocumentIdOrderByGeneratedAtDesc(Long documentId);
+    List<Summary> findByUserIdOrderByGeneratedAtDesc(Long userId);
+    List<Summary> findByWorkspaceIdOrderByGeneratedAtDesc(Long workspaceId);
     Optional<Summary> findFirstByDocumentIdOrderByGeneratedAtDesc(Long documentId);
     long countByDocumentIdIn(List<Long> documentIds);
+    long countByUserId(Long userId);
 }

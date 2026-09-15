@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { ShieldAlert, CheckCircle } from 'lucide-react';
 import { documentApi } from '../services/api';
 import type { Document, Contradiction } from '../types';
@@ -39,22 +38,19 @@ export default function ContradictionsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface-50 p-6 md:p-8 text-surface-900">
-      <div className="max-w-5xl mx-auto">
-        <Link to="/dashboard" className="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-primary-600 mb-6 font-medium">
-          ← Back to Dashboard
-        </Link>
-
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl font-extrabold text-surface-900 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
-                <ShieldAlert className="w-5 h-5 text-white" />
-              </div>
-              Contradiction & Consistency Engine
-            </h1>
-            <p className="text-surface-500 mt-1">Cross-section semantic verification for conflicting claims and metrics.</p>
-          </div>
+    <div className="max-w-5xl mx-auto space-y-6 animate-fade-in">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-surface-900 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-xs">
+              <ShieldAlert className="w-5 h-5 text-white" />
+            </div>
+            Contradiction & Consistency Engine
+          </h1>
+          <p className="text-surface-500 mt-1 text-sm">
+            Cross-section semantic verification for conflicting claims, opposing dates, and metrics.
+          </p>
+        </div>
 
           {documents.length > 0 && (
             <div className="flex items-center gap-2">
@@ -119,6 +115,5 @@ export default function ContradictionsPage() {
           )}
         </div>
       </div>
-    </div>
   );
 }

@@ -2,29 +2,29 @@
 @import "tailwindcss";
 
 @theme {
-  /* Purple-based accent system for ANTI-SUMMARY */
-  --color-primary-50: #faf5ff;
-  --color-primary-100: #f3e8ff;
-  --color-primary-200: #e9d5ff;
-  --color-primary-300: #d8b4fe;
-  --color-primary-400: #c084fc;
-  --color-primary-500: #a855f7;
-  --color-primary-600: #9333ea;
-  --color-primary-700: #7e22ce;
-  --color-primary-800: #6b21a8;
-  --color-primary-900: #581c87;
+  /* Refined Indigo/Violet Accent System for IntelliDoc AI */
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
 
   /* Neutral Surface Palette */
   --color-surface-50: #fafafa;
-  --color-surface-100: #f5f5f5;
-  --color-surface-200: #e5e5e5;
-  --color-surface-300: #d4d4d4;
-  --color-surface-400: #a3a3a3;
-  --color-surface-500: #737373;
-  --color-surface-600: #525252;
-  --color-surface-700: #404040;
-  --color-surface-800: #262626;
-  --color-surface-900: #171717;
+  --color-surface-100: #f4f4f5;
+  --color-surface-200: #e4e4e7;
+  --color-surface-300: #d4d4d8;
+  --color-surface-400: #a1a1aa;
+  --color-surface-500: #71717a;
+  --color-surface-600: #52525b;
+  --color-surface-700: #3f3f46;
+  --color-surface-800: #27272a;
+  --color-surface-900: #18181b;
 
   /* WCAG Status Colors */
   --color-success: #059669;
@@ -33,10 +33,10 @@
   --color-info: #2563eb;
 
   /* Shadows */
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-card-hover: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
-  --shadow-modal: 0 25px 50px rgba(0,0,0,0.15);
-  --shadow-glow: 0 0 30px rgba(168, 85, 247, 0.2);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-card-hover: 0 10px 25px rgba(0,0,0,0.07), 0 4px 10px rgba(0,0,0,0.03);
+  --shadow-modal: 0 25px 50px -12px rgba(0,0,0,0.25);
+  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
 
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -89,7 +89,7 @@
 
 /* Accessibility: Focus visible styling */
 :focus-visible {
-  outline: 3px solid #9333ea !important;
+  outline: 2px solid var(--color-primary-600) !important;
   outline-offset: 2px !important;
 }
 
@@ -98,7 +98,7 @@
   position: absolute;
   top: -40px;
   left: 10px;
-  background: #7e22ce;
+  background: var(--color-primary-700);
   color: white;
   padding: 8px 16px;
   z-index: 1000;
@@ -131,6 +131,73 @@ body {
   line-height: 1.6;
 }
 
+/* Dark Mode Overrides */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background: #09090b;
+  color: #f4f4f5;
+}
+
+html.dark .glass-card {
+  background: rgba(24, 24, 27, 0.85);
+  border-color: rgba(39, 39, 42, 0.7);
+}
+
+html.dark .card {
+  background: #18181b;
+  border-color: #27272a;
+}
+
+html.dark .input-field {
+  background: #18181b;
+  border-color: #27272a;
+  color: #f4f4f5;
+}
+
+html.dark .input-field:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+html.dark .tab-group {
+  background: #18181b;
+}
+
+html.dark .tab {
+  color: #a1a1aa;
+}
+
+html.dark .tab:hover {
+  color: #f4f4f5;
+  background: rgba(39, 39, 42, 0.6);
+}
+
+html.dark .tab.active {
+  background: #27272a;
+  color: #818cf8;
+}
+
+html.dark .depth-btn {
+  background: #18181b;
+  border-color: #27272a;
+  color: #a1a1aa;
+}
+
+html.dark .depth-btn:hover {
+  border-color: #6366f1;
+  background: #1e1b4b;
+  color: #c7d2fe;
+}
+
+html.dark .depth-btn.active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #ffffff;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -150,11 +217,19 @@ body {
   background: var(--color-surface-400);
 }
 
+html.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
 /* Custom UI Utilities */
 .glass-card {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(228, 228, 231, 0.8);
   border-radius: 16px;
 }
 
@@ -171,6 +246,10 @@ body {
 
 .gradient-bg-subtle {
   background: linear-gradient(135deg, var(--color-primary-50), #ffffff, var(--color-primary-50));
+}
+
+html.dark .gradient-bg-subtle {
+  background: linear-gradient(135deg, #18181b, #09090b, #18181b);
 }
 
 .hover-lift {
@@ -201,7 +280,7 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -210,7 +289,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
 }
 
 .btn-primary:disabled {

@@ -1,0 +1,58 @@
+[
+  {
+    "word_target": 1000,
+    "actual_words": 1026,
+    "summary_words": 816,
+    "latency_ms": 351.09,
+    "throughput_words_sec": 2922.3,
+    "compression_pct": 79.5,
+    "rouge_1": 0.8386,
+    "rouge_2": 0.7807,
+    "rouge_l": 0.804,
+    "flesch_reading_ease": 0.4,
+    "peak_memory_mb": 0.67,
+    "confidence": 0.95
+  },
+  {
+    "word_target": 5000,
+    "actual_words": 5043,
+    "summary_words": 816,
+    "latency_ms": 486.56,
+    "throughput_words_sec": 10364.67,
+    "compression_pct": 16.2,
+    "rouge_1": 0.2628,
+    "rouge_2": 0.2445,
+    "rouge_l": 0.804,
+    "flesch_reading_ease": 0.4,
+    "peak_memory_mb": 1.59,
+    "confidence": 0.95
+  },
+  {
+    "word_target": 20000,
+    "actual_words": 20037,
+    "summary_words": 780,
+    "latency_ms": 1153.85,
+    "throughput_words_sec": 17365.33,
+    "compression_pct": 3.9,
+    "rouge_1": 0.0713,
+    "rouge_2": 0.0665,
+    "rouge_l": 0.748,
+    "flesch_reading_ease": 1.5,
+    "peak_memory_mb": 16.58,
+    "confidence": 0.95
+  },
+  {
+    "word_target": 50000,
+    "actual_words": 50026,
+    "summary_words": 780,
+    "latency_ms": 2519.52,
+    "throughput_words_sec": 19855.38,
+    "compression_pct": 1.6,
+    "rouge_1": 0.0292,
+    "rouge_2": 0.0272,
+    "rouge_l": 0.748,
+    "flesch_reading_ease": 1.5,
+    "peak_memory_mb": 96.86,
+    "confidence": 0.95
+  }
+]

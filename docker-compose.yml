@@ -1,15 +1,51 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: intellidoc-postgres
+    environment:
+      POSTGRES_DB: intellidoc
+      POSTGRES_USER: intellidoc
+      POSTGRES_PASSWORD: intellidoc_secure_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U intellidoc -d intellidoc"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - intellidoc-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: intellidoc-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - intellidoc-network
+
   ai-service:
     build:
       context: ./ai-service
       dockerfile: Dockerfile
-    container_name: anti-summary-ai-service
+    container_name: intellidoc-ai-service
     ports:
       - "8000:8000"
     environment:
-      - APP_NAME=ANTI-SUMMARY Intelligence Service
+      - APP_NAME=IntelliDoc AI Intelligence Service
       - APP_VERSION=2.0.0
       - AI_PROVIDER=mock
       - AI_MODE=mock
@@ -17,42 +53,77 @@ services:
       - CHUNK_OVERLAP=200
       - CHROMA_PERSIST_DIR=/app/chroma_data
       - UPLOAD_DIR=/app/uploads
+      - REDIS_URL=redis://redis:6379/0
     volumes:
-      - ./data/uploads:/app/uploads
-      - ./data/chroma:/app/chroma_data
+      - uploads_data:/app/uploads
+      - chroma_data:/app/chroma_data
+    depends_on:
+      redis:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/ready"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/ready || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5
+    networks:
+      - intellidoc-network
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: anti-summary-backend
+    container_name: intellidoc-backend
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/intellidoc
+      - SPRING_DATASOURCE_USERNAME=intellidoc
+      - SPRING_DATASOURCE_PASSWORD=intellidoc_secure_pass
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
       - AI_SERVICE_URL=http://ai-service:8000
       - FILE_UPLOAD_DIR=/app/uploads
+      - JWT_SECRET=5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
     volumes:
-      - ./data/uploads:/app/uploads
-      - ./data/db:/app/data
+      - uploads_data:/app/uploads
     depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
       ai-service:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/ready || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
+    networks:
+      - intellidoc-network
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: anti-summary-frontend
+    container_name: intellidoc-frontend
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     restart: unless-stopped
+    networks:
+      - intellidoc-network
+
+networks:
+  intellidoc-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  uploads_data:

@@ -23,15 +23,20 @@ public class AIServiceClient {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Map<String, Object> extractDocument(MultipartFile file) throws IOException {
+        return extractDocumentFromBytes(file.getBytes(), file.getOriginalFilename());
+    }
+
+    public Map<String, Object> extractDocumentFromBytes(byte[] fileBytes, String originalFilename) throws IOException {
         String url = aiServiceUrl + "/api/extract";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        ByteArrayResource fileResource = new ByteArrayResource(file.getBytes()) {
+        final String fname = (originalFilename != null && !originalFilename.isBlank()) ? originalFilename : "document.txt";
+        ByteArrayResource fileResource = new ByteArrayResource(fileBytes) {
             @Override
             public String getFilename() {
-                return file.getOriginalFilename() != null ? file.getOriginalFilename() : "document";
+                return fname;
             }
         };
 
@@ -43,11 +48,11 @@ public class AIServiceClient {
             ResponseEntity<Map> response = restTemplate.postForEntity(url, requestEntity, Map.class);
             return response.getBody() != null ? response.getBody() : Collections.emptyMap();
         } catch (Exception e) {
-            // Fallback for extraction
+            // Log diagnostic info and bubble error or structured fallback
             Map<String, Object> fallback = new HashMap<>();
             fallback.put("document_id", "fallback-" + System.currentTimeMillis());
-            fallback.put("filename", file.getOriginalFilename());
-            fallback.put("file_type", "txt");
+            fallback.put("filename", fname);
+            fallback.put("file_type", fname.contains(".") ? fname.substring(fname.lastIndexOf(".") + 1) : "txt");
             fallback.put("page_count", 1);
             fallback.put("word_count", 0);
             fallback.put("char_count", 0);
@@ -55,12 +60,18 @@ public class AIServiceClient {
             fallback.put("chunks", Collections.emptyList());
             fallback.put("keywords", Collections.emptyList());
             fallback.put("status", "extracted_fallback");
+            fallback.put("error", e.getMessage());
             return fallback;
         }
     }
 
     public Map<String, Object> summarizeDocument(Map<String, Object> requestData) {
         String url = aiServiceUrl + "/api/summarize";
+        return postJson(url, requestData);
+    }
+
+    public Map<String, Object> summarizeV2(Map<String, Object> requestData) {
+        String url = aiServiceUrl + "/api/summarize/v2";
         return postJson(url, requestData);
     }
 
@@ -84,6 +95,11 @@ public class AIServiceClient {
         return postJson(url, requestData);
     }
 
+    public Map<String, Object> verifyClaims(Map<String, Object> requestData) {
+        String url = aiServiceUrl + "/api/verify";
+        return postJson(url, requestData);
+    }
+
     public Map<String, Object> generateStudyMaterial(Map<String, Object> requestData) {
         String url = aiServiceUrl + "/api/study-material";
         return postJson(url, requestData);
@@ -97,6 +113,15 @@ public class AIServiceClient {
     public Map<String, Object> compareDocuments(Map<String, Object> requestData) {
         String url = aiServiceUrl + "/api/compare";
         return postJson(url, requestData);
+    }
+
+    public boolean isHealthy() {
+        try {
+            ResponseEntity<Map> response = restTemplate.getForEntity(aiServiceUrl + "/ready", Map.class);
+            return response.getStatusCode().is2xxSuccessful();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private Map<String, Object> postJson(String url, Map<String, Object> requestData) {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { MessageSquare, Send, FileText, Brain, Sparkles } from 'lucide-react';
 import { documentApi, chatApi } from '../services/api';
 import type { Document, Source, VerificationResult, ClaimStatus } from '../types';
@@ -62,27 +61,21 @@ export default function AskDocumentPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface-50 flex flex-col">
-      {/* Top Bar */}
-      <header className="bg-white border-b border-surface-200 px-6 py-4 sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
-              <MessageSquare className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-surface-900">Ask Your Document (Grounded RAG)</h1>
-              <p className="text-xs text-surface-500">Query your documents with source evidence verification</p>
-            </div>
+    <div className="space-y-6 animate-fade-in">
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-surface-900 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-xs">
+            <MessageSquare className="w-5 h-5 text-white" />
           </div>
-          <Link to="/dashboard" className="btn-secondary !py-1.5 !px-4 !text-xs">
-            Back to Dashboard
-          </Link>
-        </div>
-      </header>
+          Ask Your Document (Grounded RAG)
+        </h1>
+        <p className="text-surface-500 mt-1.5 text-sm">
+          Query your documents with strict vector context retrieval and anti-hallucination claim verification.
+        </p>
+      </div>
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+      {/* Main Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Document Selector Sidebar */}
         <div className="card !p-4 lg:col-span-1 h-[650px] flex flex-col">
           <h3 className="font-bold text-surface-900 text-sm mb-3 flex items-center gap-1.5">
@@ -185,7 +178,7 @@ export default function AskDocumentPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

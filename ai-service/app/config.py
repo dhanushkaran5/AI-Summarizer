@@ -4,7 +4,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # Application
-    APP_NAME: str = "ANTI-SUMMARY Intelligence Service"
+    APP_NAME: str = "IntelliDoc AI Intelligence Service"
     APP_VERSION: str = "2.0.0"
     DEBUG: bool = True
     HOST: str = "0.0.0.0"
