@@ -21,6 +21,21 @@ app.add_middleware(
 START_TIME = time.time()
 
 
+@app.get("/")
+async def root():
+    """Root endpoint providing service status and navigation."""
+    return {
+        "service": "IntelliDoc AI Intelligence Service",
+        "tagline": "Upload. Understand. Ask. Learn.",
+        "status": "online",
+        "docs_url": "/docs",
+        "health_url": "/health",
+        "version": settings.APP_VERSION,
+        "ai_provider": settings.AI_PROVIDER,
+        "ai_mode": settings.AI_MODE,
+    }
+
+
 @app.get("/health")
 async def health_check():
     """Liveness probe."""
