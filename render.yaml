@@ -21,6 +21,7 @@ services:
     dockerfilePath: backend/Dockerfile
     dockerContext: backend
     plan: free
+    healthCheckPath: /health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
@@ -56,6 +57,7 @@ services:
     dockerfilePath: ai-service/Dockerfile
     dockerContext: ai-service
     plan: free
+    healthCheckPath: /health
     envVars:
       - key: AI_PROVIDER
         value: mock
