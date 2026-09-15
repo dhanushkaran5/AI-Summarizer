@@ -4,10 +4,10 @@ spring:
       on-profile: prod
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/intellidoc}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:intellidoc}}
     driver-class-name: org.postgresql.Driver
-    username: ${SPRING_DATASOURCE_USERNAME:intellidoc}
-    password: ${SPRING_DATASOURCE_PASSWORD:intellidoc_secure_pass}
+    username: ${DB_USER:${SPRING_DATASOURCE_USERNAME:intellidoc}}
+    password: ${DB_PASSWORD:${SPRING_DATASOURCE_PASSWORD:intellidoc_secure_pass}}
     hikari:
       maximum-pool-size: ${DB_POOL_MAX:10}
       minimum-idle: ${DB_POOL_MIN_IDLE:2}

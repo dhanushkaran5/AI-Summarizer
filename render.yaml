@@ -24,10 +24,26 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
-      - key: SPRING_DATASOURCE_URL
+      - key: DB_HOST
         fromDatabase:
           name: intellidoc-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: intellidoc-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: intellidoc-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: intellidoc-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: intellidoc-db
+          property: database
       - key: AI_SERVICE_URL
         value: http://intellidoc-ai-service:8000
       - key: JWT_SECRET
