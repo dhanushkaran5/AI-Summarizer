@@ -1,0 +1,8 @@
+.git
+frontend/node_modules
+frontend/dist
+backend/target
+ai-service/__pycache__
+ai-service/.venv
+ai-service/vector_store
+ai-service/uploads
